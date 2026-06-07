@@ -44,7 +44,7 @@ export function AppNowPlayingPage() {
               className="mx-auto mb-8 h-56 w-56 border border-charcoal-600/50 sm:h-72 sm:w-72"
             />
 
-            <div className="mb-6 overflow-hidden">
+            <div className="mb-6">
               <Waveform className="mx-auto" />
             </div>
 

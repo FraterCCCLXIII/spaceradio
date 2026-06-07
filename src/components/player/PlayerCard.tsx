@@ -13,7 +13,7 @@ export function PlayerCard() {
   const live = status === 'playing' || status === 'buffering' || status === 'connecting'
 
   return (
-    <Panel className="overflow-hidden p-6">
+    <Panel className="overflow-x-hidden p-6">
       <div className="mb-4 flex items-center justify-between">
         <LiveIndicator live={live} />
         <span className="font-mono text-[10px] text-muted">
@@ -28,7 +28,7 @@ export function PlayerCard() {
         </div>
       </div>
 
-      <div className="mb-4 overflow-hidden">
+      <div className="mb-4">
         <Waveform />
       </div>
       <div className="mt-5 space-y-3">

@@ -85,7 +85,7 @@ export function HeroSection() {
               <NowPlayingMeta data={nowPlaying} size="sm" />
             </div>
           </div>
-          <div className="mb-4 overflow-hidden">
+          <div className="mb-4">
             <Waveform />
           </div>
           <div className="mt-4">

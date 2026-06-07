@@ -72,7 +72,7 @@ export function isAudioAnalyserActive(): boolean {
 
 /**
  * Frequency-driven wave samples in [-1, 1].
- * Phase scrolls the pattern left-to-right across the line.
+ * Vibration originates at the center and radiates outward; amplitude tapers at both ends.
  */
 export function readAudioWaveform(sampleCount: number, phase = 0): number[] {
   if (!analyser || !frequencyData || sampleCount <= 0) {
@@ -81,17 +81,28 @@ export function readAudioWaveform(sampleCount: number, phase = 0): number[] {
 
   analyser.getByteFrequencyData(frequencyData)
 
-  const samples: number[] = []
   const binMax = Math.max(1, Math.floor(frequencyData.length * 0.72))
+  let energySum = 0
+  for (let b = 0; b < binMax; b++) {
+    energySum += frequencyData[b]
+  }
+  const centerEnergy = Math.pow(energySum / (binMax * 255), 0.75)
+
+  const samples: number[] = []
 
   for (let i = 0; i < sampleCount; i++) {
     const t = i / Math.max(1, sampleCount - 1)
-    const shifted = (t + phase) % 1
-    const bin = Math.min(binMax - 1, Math.floor(shifted * binMax))
-    const energy = Math.pow(frequencyData[bin] / 255, 0.75)
-    const carrier = Math.sin(shifted * Math.PI * 10)
-    const ripple = Math.sin((shifted * 2 + phase) * Math.PI * 6) * 0.35
-    samples.push((carrier + ripple) * energy)
+    const distFromCenter = Math.abs(t - 0.5) * 2
+    const envelope = Math.pow(Math.cos((distFromCenter * Math.PI) / 2), 1.35)
+
+    const bin = Math.min(binMax - 1, Math.floor(distFromCenter * binMax))
+    const localEnergy = Math.pow(frequencyData[bin] / 255, 0.75)
+    const energy = centerEnergy * 0.55 + localEnergy * 0.45
+
+    const outward = distFromCenter - phase
+    const carrier = Math.sin(outward * Math.PI * 14)
+    const ripple = Math.sin(outward * Math.PI * 22) * 0.28
+    samples.push((carrier + ripple) * energy * envelope)
   }
 
   return samples

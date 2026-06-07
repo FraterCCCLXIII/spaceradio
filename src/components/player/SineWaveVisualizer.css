@@ -1,20 +1,21 @@
+.sine-wave-viz-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
+}
+
 .sine-wave-viz {
   display: block;
   width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-}
-
-.sine-wave-viz line {
-  stroke-width: 0;
+  height: 100%;
+  overflow: visible;
 }
 
 .sine-wave-viz .sine-wave-path {
   fill: none;
-  stroke-width: 2;
+  stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke: #e8e8e6;
   vector-effect: non-scaling-stroke;
 }
 
