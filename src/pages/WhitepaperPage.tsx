@@ -11,7 +11,7 @@ export function WhitepaperPage() {
       <div className="px-6 py-20 text-center sm:px-10">
         <p className="text-muted">Whitepaper not found.</p>
         <Link to="/program" className="mt-4 inline-block text-signal">
-          ? Orchard Program
+          ? Whitepapers
         </Link>
       </div>
     )

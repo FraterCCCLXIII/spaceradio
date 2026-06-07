@@ -21,6 +21,7 @@ export interface WhitepaperSection {
   id: string
   title: string
   paragraphs?: string[]
+  bullets?: string[]
   table?: TableData
   chart?: ChartData
   callout?: string

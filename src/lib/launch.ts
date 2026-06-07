@@ -10,6 +10,7 @@ export const LAUNCH_COPY = {
 } as const
 
 export const HOME_LAUNCH_MODAL_KEY = 'spaceradio-launch-home-dismissed'
+export const APP_LAUNCH_MODAL_KEY = 'spaceradio-launch-app-dismissed'
 
 export interface LaunchCountdown {
   live: boolean

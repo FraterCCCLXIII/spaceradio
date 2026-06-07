@@ -9,7 +9,7 @@ export function OrchardProgramSection() {
           <img
             src={resourceImages.solarLensRing}
             alt="Gravitational lens against the stars"
-            className="absolute inset-0 h-full w-full object-cover opacity-55"
+            className="absolute inset-0 h-full w-full object-cover opacity-80"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-transparent to-void lg:bg-gradient-to-l lg:from-void lg:via-void/40 lg:to-transparent" />
         </div>
@@ -22,7 +22,7 @@ export function OrchardProgramSection() {
             Music for the long dark
           </h2>
           <p className="mt-4 max-w-lg text-sm leading-relaxed text-charcoal-200">
-            SpaceRadio is the cultural layer of a deep-time communication architecture ó
+            SpaceRadio is the cultural layer of a deep-time communication architecture ù
             beacons, gravitational-lens relays, and self-replicating seeds. Music is Layer
             3 of the message: the best first contact humanity can send.
           </p>
@@ -37,7 +37,7 @@ export function OrchardProgramSection() {
               to="/program"
               className="font-mono text-xs uppercase tracking-[0.16em] text-muted underline decoration-charcoal-500 underline-offset-4 hover:text-signal"
             >
-              Whitepaper suite ?
+              All whitepapers ?
             </Link>
           </div>
         </div>

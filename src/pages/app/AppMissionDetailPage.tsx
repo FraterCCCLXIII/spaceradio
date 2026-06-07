@@ -35,7 +35,7 @@ export function AppMissionDetailPage() {
   return (
     <div>
       <div className="relative h-56 overflow-hidden sm:h-64">
-        <img src={mission.imageUrl} alt="" className="h-full w-full object-cover opacity-60" />
+        <img src={mission.imageUrl} alt="" className="h-full w-full object-cover opacity-85" />
         <div className="absolute inset-0 bg-gradient-to-t from-void to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 px-5 pb-6 sm:px-8">
           <div className="flex flex-wrap items-center gap-3">

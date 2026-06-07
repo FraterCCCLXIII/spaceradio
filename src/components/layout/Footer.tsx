@@ -12,7 +12,7 @@ export function Footer() {
             Manifesto
           </Link>
           <Link to="/program" className="text-muted transition-colors hover:text-signal">
-            Program
+            Whitepapers
           </Link>
           <Link to="/transmissions" className="text-muted transition-colors hover:text-signal">
             Registry

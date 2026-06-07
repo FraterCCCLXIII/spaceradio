@@ -29,7 +29,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['"Barlow"', 'system-ui', 'sans-serif'],
+        sans: ['"Barlow"', '"Noto Sans"', 'system-ui', 'sans-serif'],
         display: ['"Abel"', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },

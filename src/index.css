@@ -26,7 +26,7 @@
     @apply bg-void font-sans text-charcoal-100 antialiased;
   }
 
-  img:not(.team-photo) {
+  .team-member-photo--mono {
     filter: grayscale(100%) contrast(1.05) brightness(0.75);
   }
 

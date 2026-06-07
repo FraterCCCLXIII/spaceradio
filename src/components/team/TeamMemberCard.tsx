@@ -18,7 +18,7 @@ function initials(name: string): string {
 export function TeamMemberCard({ member }: TeamMemberCardProps) {
   const [imageFailed, setImageFailed] = useState(false)
 
-  const grayscale = member.id === 'paul-bloch'
+  const monochrome = member.id === 'paul-bloch'
 
   return (
     <article className="flex w-[168px] flex-col items-center gap-3 text-center sm:w-[180px] md:items-start md:text-left">
@@ -31,7 +31,7 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
             height={439}
             loading="lazy"
             className={`h-full w-full object-cover ${
-              grayscale ? '' : 'team-photo'
+              monochrome ? 'team-member-photo--mono' : ''
             }`}
             onError={() => setImageFailed(true)}
           />

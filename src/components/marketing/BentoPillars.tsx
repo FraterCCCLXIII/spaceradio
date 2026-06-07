@@ -39,7 +39,7 @@ export function BentoPillars() {
             <img
               src={p.image}
               alt=""
-              className="absolute inset-0 h-full w-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
+              className="absolute inset-0 h-full w-full object-cover opacity-75 transition-transform duration-700 group-hover:scale-105"
             />
             <div className={`absolute inset-0 bg-gradient-to-t ${p.tint} to-void/90`} />
             <div className="relative p-8">

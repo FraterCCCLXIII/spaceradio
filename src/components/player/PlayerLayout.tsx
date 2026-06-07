@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { PlayerLaunchBlocker } from '../launch/PlayerLaunchBlocker'
 import { useLaunchCountdown } from '../../hooks/useLaunchCountdown'
+import { APP_LAUNCH_MODAL_KEY } from '../../lib/launch'
 import { usePlayerStore } from '../../store/playerStore'
 import { PlayerAppBar } from './PlayerAppBar'
 import { PlayerMobileNav } from './PlayerMobileNav'
@@ -13,7 +14,16 @@ export function PlayerLayout() {
   const pause = usePlayerStore((s) => s.pause)
   const launch = useLaunchCountdown()
   const [queueOpen, setQueueOpen] = useState(false)
+  const [launchModalDismissed, setLaunchModalDismissed] = useState(() => {
+    if (launch.live) return true
+    try {
+      return localStorage.getItem(APP_LAUNCH_MODAL_KEY) === '1'
+    } catch {
+      return false
+    }
+  })
   const playerLocked = !launch.live
+  const uiLocked = playerLocked && !launchModalDismissed
 
   useEffect(() => {
     init()
@@ -25,13 +35,16 @@ export function PlayerLayout() {
 
   return (
     <div className="relative flex h-[100dvh] flex-col overflow-hidden bg-void">
-      <PlayerLaunchBlocker variant="app" />
+      <PlayerLaunchBlocker
+        variant="app"
+        onDismiss={() => setLaunchModalDismissed(true)}
+      />
 
       <div
         className={`flex min-h-0 flex-1 flex-col ${
-          playerLocked ? 'pointer-events-none select-none opacity-50' : ''
+          uiLocked ? 'pointer-events-none select-none opacity-50' : ''
         }`}
-        aria-hidden={playerLocked}
+        aria-hidden={uiLocked}
       >
         <div className="flex min-h-0 flex-1">
           <PlayerSidebar />

@@ -47,10 +47,22 @@ export function HeroSection() {
               Listen live
             </Link>
             <Link
+              to="/manifesto"
+              className="font-mono text-xs uppercase tracking-[0.18em] text-muted transition-colors hover:text-signal"
+            >
+              Manifesto
+            </Link>
+            <Link
+              to="/program"
+              className="font-mono text-xs uppercase tracking-[0.18em] text-muted transition-colors hover:text-signal"
+            >
+              Whitepapers
+            </Link>
+            <Link
               to="/transmissions"
               className="font-mono text-xs uppercase tracking-[0.18em] text-muted transition-colors hover:text-signal"
             >
-              Transmission registry
+              Registry
             </Link>
           </div>
         </div>

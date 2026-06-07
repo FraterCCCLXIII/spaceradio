@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
 import { BarChart } from '../components/whitepaper/BarChart'
 import { DataTable } from '../components/whitepaper/DataTable'
+import { programPdfDocuments } from '../lib/program-sources'
 import { resourceImages } from '../lib/resource-images'
+import { FilePdf } from '@phosphor-icons/react'
 
 export function ManifestoPage() {
   return (
@@ -10,7 +12,7 @@ export function ManifestoPage() {
         <img
           src={resourceImages.beamBlackholeCubesats}
           alt="Signal beam from Earth toward the cosmos"
-          className="absolute inset-0 h-full w-full object-cover opacity-50"
+          className="absolute inset-0 h-full w-full object-cover opacity-80"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-void via-void/80 to-void/40" />
         <div className="relative px-6 py-20 sm:px-10 lg:px-16 lg:py-28">
@@ -37,7 +39,8 @@ export function ManifestoPage() {
             We reject the fantasy of real-time conversation between civilizations.
             The Milky Way is 13.6 billion years old; technological species may
             overlap for less than a millionth of galactic history. The right design
-            target is not dialogue ù it is <strong className="font-normal text-signal">communication between epochs</strong>.
+            target is not dialogue ù it is{' '}
+            <strong className="font-normal text-signal">communication between epochs</strong>.
           </p>
         </section>
 
@@ -71,15 +74,15 @@ export function ManifestoPage() {
             </p>
           </div>
           <div className="mt-6">
-          <DataTable
-            caption="Three layers of the SpaceRadio stack"
-            headers={['Layer', 'What', 'Horizon']}
-            rows={[
-              ['Station', 'Broadcast & culture on Earth', 'Now'],
-              ['Transmission registry', 'Logged beams Tier 1ù4', 'Years'],
-              ['Orchard archive', 'Music in the beacon message', 'Centuries ? megayears'],
-            ]}
-          />
+            <DataTable
+              caption="Three layers of the SpaceRadio stack"
+              headers={['Layer', 'What', 'Horizon']}
+              rows={[
+                ['Station', 'Broadcast & culture on Earth', 'Now'],
+                ['Transmission registry', 'Logged beams Tier 1ù4', 'Years'],
+                ['Orchard archive', 'Music in the beacon message', 'Centuries ? megayears'],
+              ]}
+            />
           </div>
         </section>
 
@@ -197,6 +200,40 @@ export function ManifestoPage() {
               Listen to the station
             </Link>
           </div>
+        </section>
+
+        <section className="mt-12 border-t border-charcoal-700/40 pt-10">
+          <h2 className="font-mono text-[10px] uppercase tracking-[0.16em] text-orbit">
+            Source documents
+          </h2>
+          <p className="mt-3 text-sm text-charcoal-200">
+            The manifesto is the cultural framing. The full technical program is documented
+            in five whitepapers (markdown) and three companion PDFs from the Resources
+            archive.
+          </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            {programPdfDocuments.map((doc) => (
+              <a
+                key={doc.slug}
+                href={doc.pdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-2 rounded-lg border border-charcoal-600/40 p-3 text-xs transition-colors hover:border-signal/25"
+              >
+                <FilePdf size={16} className="mt-0.5 shrink-0 text-beam" />
+                <span>
+                  <span className="font-medium text-signal">{doc.title}</span>
+                  <span className="mt-0.5 block text-muted">{doc.filename}</span>
+                </span>
+              </a>
+            ))}
+          </div>
+          <Link
+            to="/program"
+            className="mt-4 inline-block font-mono text-[10px] uppercase tracking-[0.14em] text-beam hover:underline"
+          >
+            Full whitepaper index with markdown downloads ?
+          </Link>
         </section>
       </div>
     </article>

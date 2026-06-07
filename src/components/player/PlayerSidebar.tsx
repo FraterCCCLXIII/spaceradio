@@ -1,11 +1,13 @@
 import {
   ArrowLeft,
+  BookOpen,
   Broadcast,
   Compass,
   Disc,
   House,
   MusicNotes,
   RocketLaunch,
+  Scroll,
 } from '@phosphor-icons/react'
 import { NavLink } from 'react-router-dom'
 import { missions } from '../../lib/demo-data'
@@ -74,10 +76,24 @@ export function PlayerSidebar() {
         </ul>
       </div>
 
-      <div className="border-t border-charcoal-700/40 px-5 py-4">
+      <div className="border-t border-charcoal-700/40 px-3 py-4 space-y-1">
+        <NavLink
+          to="/manifesto"
+          className="flex items-center gap-3 rounded-md px-3 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-muted transition-colors hover:bg-charcoal-700/30 hover:text-signal"
+        >
+          <Scroll size={16} weight="duotone" />
+          Manifesto
+        </NavLink>
+        <NavLink
+          to="/program"
+          className="flex items-center gap-3 rounded-md px-3 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-muted transition-colors hover:bg-charcoal-700/30 hover:text-signal"
+        >
+          <BookOpen size={16} weight="duotone" />
+          Whitepapers
+        </NavLink>
         <NavLink
           to="/"
-          className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-muted transition-colors hover:text-signal"
+          className="flex items-center gap-3 rounded-md px-3 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-muted transition-colors hover:text-signal"
         >
           <ArrowLeft size={14} />
           Back to site

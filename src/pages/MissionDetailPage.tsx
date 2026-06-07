@@ -41,7 +41,7 @@ export function MissionDetailPage() {
         <img
           src={mission.imageUrl}
           alt=""
-          className="h-full w-full object-cover opacity-60"
+          className="h-full w-full object-cover opacity-85"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-void to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 mx-auto max-w-7xl px-4 pb-8 sm:px-6">

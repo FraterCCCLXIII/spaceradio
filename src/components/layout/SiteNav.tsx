@@ -7,7 +7,7 @@ import { LogoOrbit } from './LogoOrbit'
 const links = [
   { to: '/app', label: 'Listen' },
   { to: '/manifesto', label: 'Manifesto' },
-  { to: '/program', label: 'Program' },
+  { to: '/program', label: 'Whitepapers' },
   { to: '/missions', label: 'Missions' },
   { to: '/originals', label: 'Originals' },
   { to: '/transmissions', label: 'Transmissions' },

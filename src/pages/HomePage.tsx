@@ -1,6 +1,8 @@
 import { HomeLaunchModal } from '../components/launch/HomeLaunchModal'
 import { HeroSection } from '../components/marketing/HeroSection'
+import { PeaceAmongWorldsSection } from '../components/marketing/PeaceAmongWorldsSection'
 import { OrchardProgramSection } from '../components/marketing/OrchardProgramSection'
+import { WhitepaperRail } from '../components/marketing/WhitepaperRail'
 import { MissionSections } from '../components/marketing/MissionSections'
 import { OriginalsRail } from '../components/marketing/OriginalsRail'
 import { SponsorLogos } from '../components/marketing/SponsorLogos'
@@ -11,8 +13,10 @@ export function HomePage() {
     <>
       <HomeLaunchModal />
       <HeroSection />
+      <PeaceAmongWorldsSection />
       <MissionSections />
       <OrchardProgramSection />
+      <WhitepaperRail />
 
       <section className="border-t border-charcoal-700/40 bg-void-elevated px-6 py-20 sm:px-10 lg:px-16">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-orbit">
