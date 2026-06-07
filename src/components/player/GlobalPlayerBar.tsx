@@ -2,13 +2,23 @@ import { CaretUp, Pause, Play } from '@phosphor-icons/react'
 import { Link } from 'react-router-dom'
 import { usePlayerStore } from '../../store/playerStore'
 import { LiveIndicator } from './LiveIndicator'
+import { TrackArtwork } from './TrackArtwork'
 
-export function GlobalPlayerBar() {
+interface GlobalPlayerBarProps {
+  visible?: boolean
+}
+
+export function GlobalPlayerBar({ visible = true }: GlobalPlayerBarProps) {
   const { nowPlaying, status, toggle } = usePlayerStore()
   const playing = status === 'playing' || status === 'buffering'
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-signal/10 bg-void-elevated/95 backdrop-blur-md">
+    <div
+      className={`fixed bottom-0 left-0 right-0 z-50 border-t border-signal/10 bg-void-elevated/95 backdrop-blur-md transition-transform duration-300 ease-out ${
+        visible ? 'translate-y-0' : 'pointer-events-none translate-y-full'
+      }`}
+      aria-hidden={!visible}
+    >
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6">
         <button
           type="button"
@@ -22,6 +32,8 @@ export function GlobalPlayerBar() {
             <Play size={18} weight="fill" className="ml-0.5" />
           )}
         </button>
+
+        <TrackArtwork track={nowPlaying.track} size="xs" />
 
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-medium">{nowPlaying.track.title}</p>

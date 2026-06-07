@@ -13,7 +13,7 @@ const sections = [
     title: 'Composing for the cosmos',
     description:
       'The AI Space Music Lab produces SpaceRadio Originals with human curation, documented provenance, and a defined Sound DNA.',
-    image: 'https://images.unsplash.com/photo-1478737270239-2f02ca77fc67?w=1600&q=80',
+    image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1600&q=80',
     cta: { label: 'Browse catalog', to: '/originals' },
   },
   {
@@ -27,7 +27,7 @@ const sections = [
     title: 'Preserved for the long horizon',
     description:
       'The Eternity Archive stores lossless masters across redundant storage, open mirrors, and institutional deposits.',
-    image: 'https://images.unsplash.com/photo-1507400492013-162706c8c161?w=1600&q=80',
+    image: 'https://images.unsplash.com/photo-1624561172888-ac93c696e10c?w=1600&q=80',
     cta: { label: 'Learn more', to: '/transmissions' },
   },
 ]

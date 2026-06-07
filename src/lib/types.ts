@@ -13,6 +13,7 @@ export interface Track {
   missionSlug: string
   curatorNote: string
   demoAudioUrl: string
+  artworkUrl: string
 }
 
 export interface Mission {

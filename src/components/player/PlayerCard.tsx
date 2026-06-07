@@ -4,6 +4,7 @@ import { Panel } from '../ui/Panel'
 import { LiveIndicator } from './LiveIndicator'
 import { NowPlayingMeta } from './NowPlayingMeta'
 import { PlayerControls, PlayerError } from './PlayerControls'
+import { TrackArtwork } from './TrackArtwork'
 import { Waveform } from './Waveform'
 
 export function PlayerCard() {
@@ -19,11 +20,16 @@ export function PlayerCard() {
         </span>
       </div>
 
+      <div className="mb-4 flex items-center gap-4">
+        <TrackArtwork track={nowPlaying.track} size="md" />
+        <div className="min-w-0 flex-1">
+          <NowPlayingMeta data={nowPlaying} size="sm" />
+        </div>
+      </div>
+
       <div className="mb-4 overflow-hidden rounded-xl bg-void-elevated p-3">
         <Waveform />
       </div>
-
-      <NowPlayingMeta data={nowPlaying} />
       <div className="mt-5 space-y-3">
         <PlayerControls />
         <PlayerError />

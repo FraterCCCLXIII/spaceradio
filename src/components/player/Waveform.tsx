@@ -1,58 +1,80 @@
+import { gsap } from 'gsap'
 import { useEffect, useRef } from 'react'
-import { usePlayerStore } from '../../store/playerStore'
+import './SineWaveVisualizer.css'
 
-const BAR_COUNT = 48
+const WIDTH = 800
+const AMPLITUDE = 30
+const FREQUENCY = 10
+const SEGMENTS = 1000
+const INTERVAL = WIDTH / SEGMENTS
 
-export function Waveform({ className = '' }: { className?: string }) {
-  const status = usePlayerStore((s) => s.status)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const frameRef = useRef<number>(0)
-  const active = status === 'playing' || status === 'buffering'
+/** Sinus curve approximating CodePen CustomEase("sinus", ...) */
+function sinusRatio(norm: number): number {
+  return Math.sin(norm * Math.PI)
+}
+
+interface WaveformProps {
+  className?: string
+  height?: number
+}
+
+export function Waveform({ className = '', height = 64 }: WaveformProps) {
+  const svgRef = useRef<SVGSVGElement>(null)
+  const waveRef = useRef<SVGPolylineElement>(null)
+  const tweensRef = useRef<gsap.core.Tween[]>([])
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
+    const svg = svgRef.current
+    const wave = waveRef.current
+    if (!svg || !wave) return
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    const draw = (t: number) => {
-      const { width, height } = canvas
-      ctx.clearRect(0, 0, width, height)
+    tweensRef.current.forEach((t) => t.kill())
+    tweensRef.current = []
 
-      const barW = width / BAR_COUNT - 2
-      for (let i = 0; i < BAR_COUNT; i++) {
-        const base = 0.15 + Math.sin(i * 0.4) * 0.08
-        const anim = active && !reduced
-          ? Math.abs(Math.sin(t * 0.003 + i * 0.35)) * 0.7
-          : base * 0.5
-        const h = (base + anim) * height
-        const x = i * (barW + 2)
-        const y = (height - h) / 2
-
-        const gradient = ctx.createLinearGradient(0, y, 0, y + h)
-        gradient.addColorStop(0, '#c8c8c6')
-        gradient.addColorStop(1, '#5a5a58')
-        ctx.fillStyle = gradient
-        ctx.fillRect(x, y, barW, h)
-      }
-
-      frameRef.current = requestAnimationFrame(draw)
+    while (wave.points.length > 0) {
+      wave.points.removeItem(0)
     }
 
-    frameRef.current = requestAnimationFrame(draw)
-    return () => cancelAnimationFrame(frameRef.current)
-  }, [active])
+    for (let i = 0; i <= SEGMENTS; i++) {
+      const norm = 1 - i / SEGMENTS
+      const point = wave.points.appendItem(svg.createSVGPoint())
+      point.x = i * INTERVAL
+      point.y = (AMPLITUDE / 2) * sinusRatio(norm)
+
+      if (!reduced) {
+        const tween = gsap.to(point, {
+          y: -point.y,
+          duration: 0.3,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+        })
+        tween.progress(norm * FREQUENCY)
+        tweensRef.current.push(tween)
+      }
+    }
+
+    return () => {
+      tweensRef.current.forEach((t) => t.kill())
+      tweensRef.current = []
+    }
+  }, [height])
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={480}
-      height={64}
-      className={`h-16 w-full max-w-md ${className}`}
+    <svg
+      ref={svgRef}
+      className={`sine-wave-viz ${className}`}
+      viewBox={`0 0 ${WIDTH} ${height}`}
+      preserveAspectRatio="none"
       aria-hidden
-    />
+      style={{ height }}
+    >
+      <g transform={`translate(0, ${height / 2})`}>
+        <line x1={0} x2={WIDTH} y1={0} y2={0} />
+        <polyline ref={waveRef} className="sine-wave-path" />
+      </g>
+    </svg>
   )
 }

@@ -5,6 +5,7 @@ import { usePlayerStore } from '../store/playerStore'
 import { LiveIndicator } from '../components/player/LiveIndicator'
 import { NowPlayingMeta } from '../components/player/NowPlayingMeta'
 import { PlayerControls, PlayerError } from '../components/player/PlayerControls'
+import { TrackArtwork } from '../components/player/TrackArtwork'
 import { Waveform } from '../components/player/Waveform'
 import { Panel } from '../components/ui/Panel'
 
@@ -17,7 +18,7 @@ export function ListenPage() {
     <div>
       <section className="relative flex min-h-[40vh] items-end overflow-hidden border-b border-charcoal-700/40">
         <img
-          src="https://images.unsplash.com/photo-1454789549943-d2bcffef2f47?w=1600&q=80"
+          src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=1600&q=80"
           alt=""
           className="absolute inset-0 h-full w-full object-cover"
         />
@@ -39,11 +40,11 @@ export function ListenPage() {
       <div className="mx-auto max-w-7xl px-6 py-10 sm:px-10 lg:px-16">
       <Panel className="p-8 md:p-12">
         <div className="mx-auto max-w-2xl text-center">
-          <div className="mx-auto mb-6 flex h-48 w-48 items-center justify-center rounded-2xl border border-charcoal-600/50 bg-gradient-to-br from-void-elevated via-charcoal-700 to-charcoal-800">
-            <span className="font-mono text-4xl text-charcoal-400">
-              {nowPlaying.track.catalogId.split('-').pop()}
-            </span>
-          </div>
+          <TrackArtwork
+            track={nowPlaying.track}
+            size="lg"
+            className="mx-auto mb-6 border border-charcoal-600/50"
+          />
 
           <div className="mb-6 overflow-hidden rounded-xl bg-void-elevated p-4">
             <Waveform className="mx-auto" />
@@ -69,11 +70,14 @@ export function ListenPage() {
             {nowPlaying.upNext.map((t) => (
               <li
                 key={t.id}
-                className="flex items-center justify-between rounded-lg border border-signal/10 bg-void-panel px-4 py-3"
+                className="flex items-center justify-between gap-3 rounded-lg border border-signal/10 bg-void-panel px-4 py-3"
               >
-                <div>
-                  <p className="text-sm font-medium">{t.title}</p>
-                  <p className="font-mono text-[10px] text-muted">{t.catalogId}</p>
+                <div className="flex min-w-0 items-center gap-3">
+                  <TrackArtwork track={t} size="xs" />
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium">{t.title}</p>
+                    <p className="font-mono text-[10px] text-muted">{t.catalogId}</p>
+                  </div>
                 </div>
                 <span className="font-mono text-xs text-muted">{t.bpm} BPM</span>
               </li>

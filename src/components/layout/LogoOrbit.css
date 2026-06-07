@@ -1,0 +1,27 @@
+.logo-orbit {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--color-signal);
+}
+
+.logo-orbit__body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2.5px;
+  height: 2.5px;
+  border-radius: 50%;
+  background: currentColor;
+  will-change: transform;
+}
+
+.logo-orbit__body:nth-child(2) {
+  opacity: 0.9;
+}
+
+.logo-orbit__body:nth-child(3) {
+  opacity: 0.78;
+}

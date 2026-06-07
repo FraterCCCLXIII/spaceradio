@@ -11,14 +11,14 @@ const pillars = [
   {
     title: 'AI Space Music Lab',
     description: 'Human-curated compositions with documented provenance and Sound DNA.',
-    image: 'https://images.unsplash.com/photo-1478737270239-2f02ca77fc67?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80',
     link: '/originals',
     tint: 'from-charcoal-500/35',
   },
   {
     title: 'Eternity Archive',
     description: 'Lossless masters preserved for institutions and open mirrors.',
-    image: 'https://images.unsplash.com/photo-1507400492013-162706c8c161?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1624561172888-ac93c696e10c?w=800&q=80',
     link: '/transmissions',
     tint: 'from-charcoal-700/45',
   },

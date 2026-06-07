@@ -24,6 +24,7 @@ export const tracks: Track[] = [
     missionSlug: 'deep-orbit',
     curatorNote: 'Void-session pad stack tuned for Deep Orbit rotation.',
     demoAudioUrl: DEMO_AUDIO[0],
+    artworkUrl: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&q=80',
   },
   {
     id: 't2',
@@ -37,6 +38,7 @@ export const tracks: Track[] = [
     missionSlug: 'demo-flight',
     curatorNote: 'Ascent energy for Launch Pad rotation.',
     demoAudioUrl: DEMO_AUDIO[1],
+    artworkUrl: 'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=600&q=80',
   },
   {
     id: 't3',
@@ -50,6 +52,7 @@ export const tracks: Track[] = [
     missionSlug: 'deep-orbit',
     curatorNote: 'Ultra-sparse long-form for Void Session.',
     demoAudioUrl: DEMO_AUDIO[2],
+    artworkUrl: 'https://images.unsplash.com/photo-1457365050282-c53d772ef8b2?w=600&q=80',
   },
   {
     id: 't4',
@@ -63,6 +66,7 @@ export const tracks: Track[] = [
     missionSlug: 'mars-relay',
     curatorNote: 'Rhythmic forward motion without EDM cliché.',
     demoAudioUrl: DEMO_AUDIO[3],
+    artworkUrl: 'https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=600&q=80',
   },
   {
     id: 't5',
@@ -76,6 +80,7 @@ export const tracks: Track[] = [
     missionSlug: 'jwst',
     curatorNote: 'Warm harmonic arrival piece for Deep Sky.',
     demoAudioUrl: DEMO_AUDIO[4],
+    artworkUrl: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=600&q=80',
   },
   {
     id: 't6',
@@ -89,6 +94,7 @@ export const tracks: Track[] = [
     missionSlug: 'voyager-tribute',
     curatorNote: 'Interstellar context; sparse Morse motifs.',
     demoAudioUrl: DEMO_AUDIO[5],
+    artworkUrl: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&q=80',
   },
   {
     id: 't7',
@@ -102,6 +108,7 @@ export const tracks: Track[] = [
     missionSlug: 'artemis',
     curatorNote: 'Resolving chords for lunar mission hour.',
     demoAudioUrl: DEMO_AUDIO[6],
+    artworkUrl: 'https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=600&q=80',
   },
   {
     id: 't8',
@@ -115,6 +122,7 @@ export const tracks: Track[] = [
     missionSlug: 'commercial',
     curatorNote: 'Launch-day energy; event rotation only.',
     demoAudioUrl: DEMO_AUDIO[7],
+    artworkUrl: 'https://images.unsplash.com/photo-1517976487492-5750f3195933?w=600&q=80',
   },
 ]
 
@@ -132,7 +140,7 @@ export const missions: Mission[] = [
     name: 'Demo Flight',
     description: 'Demonstration mission for SpaceRadio platform testing.',
     tieIn: 'Platform demo',
-    imageUrl: 'https://images.unsplash.com/photo-1457364872868-604a8fdfac0b?w=1200&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=1200&q=80',
     trackIds: ['t2'],
   },
   {
@@ -166,7 +174,7 @@ export const missions: Mission[] = [
     name: 'Voyager Tribute',
     description: 'Interstellar context and long-horizon transmission thinking.',
     tieIn: 'Voyager heritage',
-    imageUrl: 'https://images.unsplash.com/photo-1419242902214-272b3f78692f?w=1200&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1457365050282-c53d772ef8b2?w=1200&q=80',
     trackIds: ['t6'],
   },
   {

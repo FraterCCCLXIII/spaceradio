@@ -2,6 +2,7 @@ import { List, Pause, Play, X } from '@phosphor-icons/react'
 import { useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { usePlayerStore } from '../../store/playerStore'
+import { LogoOrbit } from './LogoOrbit'
 
 const links = [
   { to: '/listen', label: 'Listen' },
@@ -27,7 +28,8 @@ export function SiteNav() {
       }`}
     >
       <nav className="mx-auto flex h-14 items-center justify-between gap-4 px-6 sm:px-10 lg:h-16 lg:px-16">
-        <Link to="/" className="logo-text shrink-0">
+        <Link to="/" className="logo-text flex shrink-0 items-center gap-2.5">
+          <LogoOrbit />
           SpaceRadio
         </Link>
 

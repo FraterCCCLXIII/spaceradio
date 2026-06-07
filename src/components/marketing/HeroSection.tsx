@@ -1,10 +1,14 @@
+import { lazy, Suspense } from 'react'
 import { Link } from 'react-router-dom'
 import { usePlayerStore } from '../../store/playerStore'
 import { LiveIndicator } from '../player/LiveIndicator'
 import { PlayerControls } from '../player/PlayerControls'
 import { Waveform } from '../player/Waveform'
 import { NowPlayingMeta } from '../player/NowPlayingMeta'
-import { EnergyBackground } from './EnergyBackground'
+import { TrackArtwork } from '../player/TrackArtwork'
+const HeroOrb = lazy(() =>
+  import('./HeroOrb').then((m) => ({ default: m.HeroOrb })),
+)
 
 export function HeroSection() {
   const nowPlaying = usePlayerStore((s) => s.nowPlaying)
@@ -12,8 +16,10 @@ export function HeroSection() {
   const live = status === 'playing' || status === 'buffering' || status === 'connecting'
 
   return (
-    <section className="relative flex min-h-[100dvh] items-end overflow-hidden">
-      <EnergyBackground />
+    <section id="hero" className="relative flex min-h-[100dvh] items-end overflow-hidden">
+      <Suspense fallback={null}>
+        <HeroOrb />
+      </Suspense>
       <div className="absolute inset-0 bg-gradient-to-t from-void via-void/75 to-void/20" />
       <div className="absolute inset-0 bg-void/25" />
 
@@ -52,10 +58,15 @@ export function HeroSection() {
               {nowPlaying.listenersEstimate} listeners
             </span>
           </div>
+          <div className="mb-4 flex items-center gap-3">
+            <TrackArtwork track={nowPlaying.track} size="sm" />
+            <div className="min-w-0 flex-1">
+              <NowPlayingMeta data={nowPlaying} size="sm" />
+            </div>
+          </div>
           <div className="mb-4 overflow-hidden bg-charcoal-800/50 p-2">
             <Waveform />
           </div>
-          <NowPlayingMeta data={nowPlaying} size="sm" />
           <div className="mt-4">
             <PlayerControls />
           </div>
