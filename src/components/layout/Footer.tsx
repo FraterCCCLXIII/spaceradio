@@ -14,7 +14,7 @@ export function Footer() {
           <Link to="/sponsors" className="text-muted transition-colors hover:text-signal">
             Partners
           </Link>
-          <Link to="/listen" className="text-muted transition-colors hover:text-signal">
+          <Link to="/app" className="text-muted transition-colors hover:text-signal">
             Listen
           </Link>
         </div>

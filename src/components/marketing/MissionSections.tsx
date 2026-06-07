@@ -7,7 +7,7 @@ const sections = [
     description:
       'SpaceRadio is a 24/7 station playing original space music — curated compositions tied to missions, launches, and the rhythm of orbit.',
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&q=80',
-    cta: { label: 'Listen live', to: '/listen' },
+    cta: { label: 'Listen live', to: '/app' },
   },
   {
     title: 'Composing for the cosmos',

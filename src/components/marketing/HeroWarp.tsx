@@ -23,6 +23,7 @@ function randomizeParticle(p: Particle, width: number, height: number) {
   p.x = Math.random() * width
   p.y = Math.random() * height
   p.z = Math.random() * 1500 + 500
+  p.pastZ = p.z
   return p
 }
 
@@ -52,12 +53,11 @@ export function HeroWarp() {
     let frame = 0
     let running = true
 
-    const particles: Particle[] = Array.from({ length: particleNum }, () => {
-      const p = createParticle()
-      randomizeParticle(p, 1, 1)
-      p.z -= 500 * Math.random()
-      return p
-    })
+    const particles: Particle[] = Array.from({ length: particleNum }, () =>
+      createParticle(),
+    )
+
+    let warmed = false
 
     const resize = () => {
       canvasWidth = container.clientWidth
@@ -68,6 +68,11 @@ export function HeroWarp() {
       centerY = canvasHeight * 0.5
       mouseX = centerX
       mouseY = centerY
+
+      for (const p of particles) {
+        randomizeParticle(p, canvasWidth, canvasHeight)
+      }
+      warmed = false
     }
 
     const setMouseFromEvent = (clientX: number, clientY: number) => {
@@ -97,6 +102,16 @@ export function HeroWarp() {
 
       speed += (targetSpeed - speed) * 0.01
 
+      if (!warmed) {
+        for (const p of particles) {
+          p.pastZ = p.z
+          p.z -= speed
+          if (p.z <= 0) randomizeParticle(p, canvasWidth, canvasHeight)
+        }
+        warmed = true
+        return
+      }
+
       const halfPi = Math.PI * 0.5
       context.fillStyle = 'rgb(255, 255, 255)'
       context.beginPath()
@@ -107,7 +122,7 @@ export function HeroWarp() {
         p.pastZ = p.z
         p.z -= speed
 
-        if (p.z <= 0 || p.pastZ <= 0) {
+        if (p.z <= 0) {
           randomizeParticle(p, canvasWidth, canvasHeight)
           continue
         }

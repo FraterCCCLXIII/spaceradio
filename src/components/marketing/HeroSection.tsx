@@ -37,7 +37,7 @@ export function HeroSection() {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-6">
             <Link
-              to="/listen"
+              to="/app"
               className="font-mono text-xs uppercase tracking-[0.18em] text-signal underline decoration-charcoal-500 underline-offset-4 transition-colors hover:text-beam"
             >
               Listen live

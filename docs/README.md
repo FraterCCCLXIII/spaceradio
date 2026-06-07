@@ -21,7 +21,12 @@ docs/
 ├── CONTENT.md          ← Shows, playlists, music rules
 ├── SPONSORSHIPS.md     ← Partner model and packages
 ├── TRANSMISSION.md     ← Off-Earth broadcast program
-└── WEB_EXPERIENCE.md   ← Company site + radio player (taste-skill)
+├── WEB_EXPERIENCE.md   ← Company site + radio player (taste-skill)
+└── missions/           ← Mission concept whitepapers (ideation)
+    ├── README.md
+    ├── HELIOS_RELAY.md
+    ├── EIDOLON_MESH.md
+    └── MNEMOSYNE_CUBE.md
 ```
 
 ## Using docs in implementation
@@ -33,6 +38,7 @@ docs/
 | AI music features | CONTENT.md, ARCHITECTURE.md |
 | Sponsor portal, decks | SPONSORSHIPS.md, BRAND.md |
 | Beam/transmission UI | TRANSMISSION.md, ARCHITECTURE.md |
+| Mission concepts, whitepapers | missions/README.md |
 | Planning, prioritization | ROADMAP.md |
 
 ## Content conventions

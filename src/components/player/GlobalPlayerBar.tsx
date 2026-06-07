@@ -45,7 +45,7 @@ export function GlobalPlayerBar({ visible = true }: GlobalPlayerBarProps) {
         <LiveIndicator live={playing || status === 'connecting'} compact />
 
         <Link
-          to="/listen"
+          to="/app"
           className="hidden rounded-full p-2 text-muted transition-colors hover:bg-charcoal-700/50 hover:text-signal sm:block"
           aria-label="Expand player"
         >

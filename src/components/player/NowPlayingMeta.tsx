@@ -6,9 +6,13 @@ import { TierBadge } from '../registry/TierBadge'
 interface NowPlayingMetaProps {
   data: NowPlaying
   size?: 'sm' | 'md' | 'lg'
+  /** Use `/app/...` routes when rendered inside the player shell */
+  inApp?: boolean
 }
 
-export function NowPlayingMeta({ data, size = 'md' }: NowPlayingMetaProps) {
+export function NowPlayingMeta({ data, size = 'md', inApp }: NowPlayingMetaProps) {
+  const missionBase = inApp ? '/app/missions' : '/missions'
+  const transmissionBase = inApp ? '/app/transmissions' : '/transmissions'
   const { track, mission, transmission } = data
 
   const titleClass =
@@ -29,13 +33,13 @@ export function NowPlayingMeta({ data, size = 'md' }: NowPlayingMetaProps) {
       </p>
       <div className="flex flex-wrap items-center gap-2">
         <Link
-          to={`/missions/${mission.slug}`}
+          to={`${missionBase}/${mission.slug}`}
           className="rounded-full bg-charcoal-700/60 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-orbit transition-colors hover:bg-charcoal-600/60"
         >
           {mission.name}
         </Link>
         {transmission && (
-          <Link to={`/transmissions/${transmission.id}`}>
+          <Link to={`${transmissionBase}/${transmission.id}`}>
             <TierBadge tier={transmission.tier} active={transmission.status === 'active'} />
           </Link>
         )}

@@ -6,6 +6,8 @@ import { TierBadge } from './TierBadge'
 
 interface TransmissionCardProps {
   transmission: Transmission
+  /** Route prefix, e.g. `/app/transmissions` inside the player app */
+  linkPrefix?: string
 }
 
 const statusColors: Record<string, string> = {
@@ -15,12 +17,12 @@ const statusColors: Record<string, string> = {
   failed: 'text-muted',
 }
 
-export function TransmissionCard({ transmission: tx }: TransmissionCardProps) {
+export function TransmissionCard({ transmission: tx, linkPrefix = '/transmissions' }: TransmissionCardProps) {
   const track = getTrackById(tx.trackIds[0])
 
   return (
     <Link
-      to={`/transmissions/${tx.id}`}
+      to={`${linkPrefix}/${tx.id}`}
       className="block rounded-2xl border border-signal/10 bg-void-panel p-5 transition-colors hover:border-signal/25"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">

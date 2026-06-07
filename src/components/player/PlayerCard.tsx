@@ -36,7 +36,7 @@ export function PlayerCard() {
       </div>
 
       <Link
-        to="/listen"
+        to="/app"
         className="mt-4 block text-center font-mono text-[10px] uppercase tracking-wider text-muted transition-colors hover:text-beam"
       >
         Open full station →

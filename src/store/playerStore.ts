@@ -37,6 +37,8 @@ interface PlayerState {
   nowPlaying: NowPlaying
   volume: number
   errorMessage: string | null
+  currentTimeSec: number
+  durationSec: number
   init: () => void
   play: () => Promise<void>
   pause: () => void
@@ -50,6 +52,8 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   nowPlaying: buildNowPlaying(getRotationIndex()),
   volume: loadVolume(),
   errorMessage: null,
+  currentTimeSec: 0,
+  durationSec: 0,
 
   init: () => {
     if (initialized) return
@@ -78,10 +82,19 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
         errorMessage: 'Signal lost. Reacquiring.',
       })
     })
+    el.addEventListener('timeupdate', () => {
+      set({
+        currentTimeSec: el.currentTime,
+        durationSec: Number.isFinite(el.duration) ? el.duration : 0,
+      })
+    })
+    el.addEventListener('loadedmetadata', () => {
+      set({ durationSec: Number.isFinite(el.duration) ? el.duration : 0 })
+    })
     el.addEventListener('ended', () => {
       const idx = advanceRotation()
       const np = buildNowPlaying(idx)
-      set({ nowPlaying: np, status: 'connecting' })
+      set({ nowPlaying: np, status: 'connecting', currentTimeSec: 0 })
       el.src = np.track.demoAudioUrl
       void el.play().catch(() => {
         set({ status: 'error', errorMessage: 'Signal lost. Reacquiring.' })

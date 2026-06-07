@@ -24,6 +24,13 @@ export interface Mission {
   sponsor?: string
   imageUrl: string
   trackIds: string[]
+  /** Ideation / pre-feasibility mission — not yet on-air programming */
+  concept?: boolean
+  registryId?: string
+  missionStatus?: string
+  tierTarget?: TransmissionTier
+  tagline?: string
+  stationBlock?: string
 }
 
 export interface Transmission {

@@ -186,6 +186,51 @@ export const missions: Mission[] = [
     imageUrl: 'https://images.unsplash.com/photo-1517976487492-5750f3195933?w=1200&q=80',
     trackIds: ['t8'],
   },
+  {
+    slug: 'helios-relay',
+    name: 'Mission Helios Relay',
+    description:
+      'Deep-space laser communications using the Sun as a heliocentric beacon. Music aligned to the star.',
+    tieIn: 'Tier 4 photonic pathway',
+    imageUrl: 'https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=1200&q=80',
+    trackIds: [],
+    concept: true,
+    registryId: 'SR-MIS-HEL-001',
+    missionStatus: 'Pre-feasibility · v0.1 ideation',
+    tierTarget: 4,
+    tagline: 'Music aligned to the star.',
+    stationBlock: 'Helios Hour',
+  },
+  {
+    slug: 'eidolon-mesh',
+    name: 'Project Eidolon Mesh',
+    description:
+      'Quantum-assisted timing and keying for a free-music distribution network. No claim of FTL transfer.',
+    tieIn: 'Tier 1–2 trust & sync',
+    imageUrl: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1200&q=80',
+    trackIds: [],
+    concept: true,
+    registryId: 'SR-MIS-EID-001',
+    missionStatus: 'Theoretical architecture · v0.1 ideation',
+    tierTarget: 2,
+    tagline: 'Ceremony + proof at planetary scale.',
+    stationBlock: 'Eidolon Open Hour',
+  },
+  {
+    slug: 'mnemosyne-cube',
+    name: 'Mission Mnemosyne Cube',
+    description:
+      'Autonomous orbital AI instrument that composes and transmits SpaceRadio Originals for as long as it survives.',
+    tieIn: 'Tier 3 orbital payload',
+    imageUrl: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=1200&q=80',
+    trackIds: [],
+    concept: true,
+    registryId: 'SR-MIS-MNE-001',
+    missionStatus: 'Concept design · v0.1 ideation',
+    tierTarget: 3,
+    tagline: 'Music born in orbit.',
+    stationBlock: 'Mnemosyne Sol',
+  },
 ]
 
 export const transmissions: Transmission[] = [

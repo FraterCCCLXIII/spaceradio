@@ -5,7 +5,7 @@ import { usePlayerStore } from '../../store/playerStore'
 import { LogoOrbit } from './LogoOrbit'
 
 const links = [
-  { to: '/listen', label: 'Listen' },
+  { to: '/app', label: 'Listen' },
   { to: '/missions', label: 'Missions' },
   { to: '/originals', label: 'Originals' },
   { to: '/transmissions', label: 'Transmissions' },

@@ -5,7 +5,7 @@ const pillars = [
     title: 'The Station',
     description: '24/7 original programming tied to real missions and cosmic sound.',
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80',
-    link: '/listen',
+    link: '/app',
     tint: 'from-charcoal-600/40',
   },
   {
