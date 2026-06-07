@@ -1,4 +1,3 @@
-import { lazy, Suspense } from 'react'
 import { Link } from 'react-router-dom'
 import { usePlayerStore } from '../../store/playerStore'
 import { LiveIndicator } from '../player/LiveIndicator'
@@ -6,9 +5,7 @@ import { PlayerControls } from '../player/PlayerControls'
 import { Waveform } from '../player/Waveform'
 import { NowPlayingMeta } from '../player/NowPlayingMeta'
 import { TrackArtwork } from '../player/TrackArtwork'
-const HeroOrb = lazy(() =>
-  import('./HeroOrb').then((m) => ({ default: m.HeroOrb })),
-)
+import { HeroWarp } from './HeroWarp'
 
 export function HeroSection() {
   const nowPlaying = usePlayerStore((s) => s.nowPlaying)
@@ -17,9 +14,7 @@ export function HeroSection() {
 
   return (
     <section id="hero" className="relative flex min-h-[100dvh] items-end overflow-hidden">
-      <Suspense fallback={null}>
-        <HeroOrb />
-      </Suspense>
+      <HeroWarp />
       <div className="absolute inset-0 bg-gradient-to-t from-void via-void/75 to-void/20" />
       <div className="absolute inset-0 bg-void/25" />
 
