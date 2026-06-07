@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react'
 import './HeroWarp.css'
 
-const PARTICLE_NUM = 400
+const PARTICLE_NUM_DESKTOP = 300
+const PARTICLE_NUM_MOBILE = 150
 const PARTICLE_BASE_RADIUS = 0.5
 const FL = 500
 const DEFAULT_SPEED = 2
@@ -35,6 +36,8 @@ export function HeroWarp() {
     if (!container || !canvas) return
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const mobile = window.matchMedia('(max-width: 768px)').matches
+    const particleNum = mobile ? PARTICLE_NUM_MOBILE : PARTICLE_NUM_DESKTOP
     const context = canvas.getContext('2d')
     if (!context) return
 
@@ -49,7 +52,7 @@ export function HeroWarp() {
     let frame = 0
     let running = true
 
-    const particles: Particle[] = Array.from({ length: PARTICLE_NUM }, () => {
+    const particles: Particle[] = Array.from({ length: particleNum }, () => {
       const p = createParticle()
       randomizeParticle(p, 1, 1)
       p.z -= 500 * Math.random()
@@ -98,7 +101,7 @@ export function HeroWarp() {
       context.fillStyle = 'rgb(255, 255, 255)'
       context.beginPath()
 
-      for (let i = 0; i < PARTICLE_NUM; i++) {
+      for (let i = 0; i < particleNum; i++) {
         const p = particles[i]
 
         p.pastZ = p.z
@@ -147,9 +150,13 @@ export function HeroWarp() {
     window.addEventListener('mousedown', onMouseDown)
     window.addEventListener('mouseup', onMouseUp)
 
-    loop()
+    let startId = 0
+    if (!reduced) {
+      startId = window.setTimeout(() => loop(), 0)
+    }
 
     return () => {
+      clearTimeout(startId)
       running = false
       cancelAnimationFrame(frame)
       observer.disconnect()

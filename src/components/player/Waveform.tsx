@@ -28,35 +28,42 @@ export function Waveform({ className = '', height = 64 }: WaveformProps) {
     const wave = waveRef.current
     if (!svg || !wave) return
 
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    let cancelled = false
+    const frame = requestAnimationFrame(() => {
+      if (cancelled) return
 
-    tweensRef.current.forEach((t) => t.kill())
-    tweensRef.current = []
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    while (wave.points.length > 0) {
-      wave.points.removeItem(0)
-    }
+      tweensRef.current.forEach((t) => t.kill())
+      tweensRef.current = []
 
-    for (let i = 0; i <= SEGMENTS; i++) {
-      const norm = 1 - i / SEGMENTS
-      const point = wave.points.appendItem(svg.createSVGPoint())
-      point.x = i * INTERVAL
-      point.y = (AMPLITUDE / 2) * sinusRatio(norm)
-
-      if (!reduced) {
-        const tween = gsap.to(point, {
-          y: -point.y,
-          duration: 0.3,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-        })
-        tween.progress(norm * FREQUENCY)
-        tweensRef.current.push(tween)
+      while (wave.points.length > 0) {
+        wave.points.removeItem(0)
       }
-    }
+
+      for (let i = 0; i <= SEGMENTS; i++) {
+        const norm = 1 - i / SEGMENTS
+        const point = wave.points.appendItem(svg.createSVGPoint())
+        point.x = i * INTERVAL
+        point.y = (AMPLITUDE / 2) * sinusRatio(norm)
+
+        if (!reduced) {
+          const tween = gsap.to(point, {
+            y: -point.y,
+            duration: 0.3,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+          })
+          tween.progress(norm * FREQUENCY)
+          tweensRef.current.push(tween)
+        }
+      }
+    })
 
     return () => {
+      cancelled = true
+      cancelAnimationFrame(frame)
       tweensRef.current.forEach((t) => t.kill())
       tweensRef.current = []
     }
