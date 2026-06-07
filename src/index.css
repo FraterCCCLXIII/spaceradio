@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-void: #0a0e17;
+  --color-void-elevated: #12182a;
+  --color-void-panel: #1a2236;
+  --color-signal: #e8b84a;
+  --color-beam: #5ec8e8;
+  --color-orbit: #6b5b95;
+  --color-text: #e8eaed;
+  --color-muted: #8b95a8;
+  --color-border: rgba(232, 184, 74, 0.12);
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-void font-sans text-[#e8eaed] antialiased;
+  }
+
+  ::selection {
+    @apply bg-signal/30 text-white;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
