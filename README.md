@@ -26,12 +26,22 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173). Demo uses placeholder stream audio (SoundHelix) with mock now-playing metadata.
+Open the URL Vite prints (e.g. `http://localhost:5173`). Demo uses placeholder stream audio with mock now-playing metadata.
 
 ```bash
-npm run build   # production build
-npm run preview # preview production build
+npm run build          # local / Vercel (base /)
+npm run build:pages    # GitHub Pages (base /spaceradio/)
+npm run preview        # preview local build at /
+npm run preview:pages  # preview Pages build at /spaceradio/
 ```
+
+**Important:** Do not enable GitHub Pages “deploy from branch /root” on source files — that serves unbuilt `index.html` and the app will be blank. Use the GitHub Actions workflow instead.
+
+### GitHub Pages
+
+1. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**
+2. Push to `main` (workflow in `.github/workflows/deploy.yml` runs `build:pages`)
+3. Open `https://fraterccclxiii.github.io/spaceradio/` (note the `/spaceradio/` path)
 
 ## Status
 

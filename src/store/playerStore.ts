@@ -9,21 +9,25 @@ import type { NowPlaying, PlayerStatus } from '../lib/types'
 const VOLUME_KEY = 'spaceradio-volume'
 
 function loadVolume(): number {
-  const stored = localStorage.getItem(VOLUME_KEY)
-  if (stored) {
-    const v = parseFloat(stored)
-    if (!Number.isNaN(v) && v >= 0 && v <= 1) return v
+  try {
+    const stored = localStorage.getItem(VOLUME_KEY)
+    if (stored) {
+      const v = parseFloat(stored)
+      if (!Number.isNaN(v) && v >= 0 && v <= 1) return v
+    }
+  } catch {
+    // localStorage unavailable
   }
   return 0.75
 }
 
 let audio: HTMLAudioElement | null = null
 let rotationTimer: ReturnType<typeof setInterval> | null = null
+let initialized = false
 
 function getAudio(): HTMLAudioElement {
   if (!audio) {
     audio = new Audio()
-    audio.crossOrigin = 'anonymous'
   }
   return audio
 }
@@ -48,6 +52,9 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   errorMessage: null,
 
   init: () => {
+    if (initialized) return
+    initialized = true
+
     const el = getAudio()
     const { volume, nowPlaying } = get()
 
@@ -126,7 +133,11 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   setVolume: (v: number) => {
     const clamped = Math.min(1, Math.max(0, v))
     getAudio().volume = clamped
-    localStorage.setItem(VOLUME_KEY, String(clamped))
+    try {
+      localStorage.setItem(VOLUME_KEY, String(clamped))
+    } catch {
+      // ignore
+    }
     set({ volume: clamped })
   },
 

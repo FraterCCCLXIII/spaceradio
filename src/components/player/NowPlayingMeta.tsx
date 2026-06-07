@@ -30,7 +30,7 @@ export function NowPlayingMeta({ data, size = 'md' }: NowPlayingMetaProps) {
       <div className="flex flex-wrap items-center gap-2">
         <Link
           to={`/missions/${mission.slug}`}
-          className="rounded-full bg-orbit/20 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-orbit transition-colors hover:bg-orbit/30"
+          className="rounded-full bg-charcoal-700/60 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-orbit transition-colors hover:bg-charcoal-600/60"
         >
           {mission.name}
         </Link>

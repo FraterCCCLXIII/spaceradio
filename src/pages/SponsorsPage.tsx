@@ -34,11 +34,9 @@ const packages = [
 
 export function SponsorsPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
-      <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
-        Partner with SpaceRadio
-      </h1>
-      <p className="mt-3 max-w-2xl text-muted">
+    <div className="px-6 py-12 sm:px-10 lg:px-16">
+      <h1 className="page-heading">Partner with SpaceRadio</h1>
+      <p className="mt-4 max-w-2xl text-charcoal-200">
         Space projects need cultural reach beyond press releases. Sponsorship
         packages attach your mission to original music, verified transmissions,
         and education outreach.
@@ -50,11 +48,11 @@ export function SponsorsPage() {
             key={pkg.name}
             className={`rounded-2xl border p-6 ${
               pkg.highlight
-                ? 'border-signal bg-signal/5'
+                ? 'border-charcoal-400 bg-charcoal-700/40'
                 : 'border-signal/10 bg-void-panel'
             }`}
           >
-            <h2 className="text-xl font-semibold">{pkg.name}</h2>
+            <h2 className="font-display text-xl font-normal uppercase tracking-wide text-signal">{pkg.name}</h2>
             <p className="mt-1 font-mono text-xs text-muted">{pkg.range}</p>
             <ul className="mt-6 space-y-2 text-sm text-muted">
               {pkg.features.map((f) => (
@@ -69,7 +67,7 @@ export function SponsorsPage() {
       </div>
 
       <div className="mt-16 rounded-2xl border border-signal/10 bg-void-panel p-8 text-center">
-        <h2 className="text-xl font-semibold">Start a conversation</h2>
+        <h2 className="font-display text-xl font-normal uppercase tracking-wide text-signal">Start a conversation</h2>
         <p className="mt-2 text-sm text-muted">
           Pricing indicative. In-kind dish time and launch slots available.
         </p>

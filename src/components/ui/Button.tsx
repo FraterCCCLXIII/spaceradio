@@ -9,11 +9,11 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-signal text-void hover:bg-signal/90 active:scale-[0.98]',
+    'bg-signal text-void hover:bg-charcoal-50 active:scale-[0.98]',
   secondary:
-    'border border-signal/30 text-signal hover:bg-signal/10 active:scale-[0.98]',
+    'border border-charcoal-500/50 text-signal hover:bg-charcoal-700/50 active:scale-[0.98]',
   ghost:
-    'text-muted hover:text-[#e8eaed] hover:bg-white/5 active:scale-[0.98]',
+    'text-muted hover:text-signal hover:bg-charcoal-700/40 active:scale-[0.98]',
 }
 
 export function Button({

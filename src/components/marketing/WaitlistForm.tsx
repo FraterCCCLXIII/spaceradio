@@ -1,5 +1,4 @@
 import { useState, type FormEvent } from 'react'
-import { Button } from '../ui/Button'
 
 export function WaitlistForm() {
   const [email, setEmail] = useState('')
@@ -11,37 +10,38 @@ export function WaitlistForm() {
   }
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
-      <div className="mx-auto max-w-xl rounded-2xl border border-signal/10 bg-void-panel p-8 text-center">
-        <h2 className="text-2xl font-semibold tracking-tight">Follow the beam</h2>
-        <p className="mt-2 text-sm text-muted">
-          Transmission alerts, new Originals, and launch-day listening parties.
-        </p>
+    <section className="border-t border-charcoal-700/40 px-6 py-20 sm:px-10 lg:px-16">
+      <h2 className="page-heading">Follow the beam</h2>
+      <p className="mt-4 max-w-md text-charcoal-200">
+        Transmission alerts, new Originals, and launch-day listening parties.
+      </p>
 
-        {submitted ? (
-          <p className="mt-6 font-mono text-sm text-beam">
-            Signal acquired. Check your inbox.
-          </p>
-        ) : (
-          <form onSubmit={handleSubmit} className="mt-6 space-y-3">
-            <label htmlFor="email" className="sr-only">
-              Email address
-            </label>
-            <input
-              id="email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@mission.control"
-              className="w-full rounded-lg border border-signal/20 bg-void px-4 py-3 text-sm text-[#e8eaed] placeholder:text-muted/60 focus:border-signal focus:outline-none focus:ring-1 focus:ring-signal"
-            />
-            <Button type="submit" className="w-full">
-              Join waitlist
-            </Button>
-          </form>
-        )}
-      </div>
+      {submitted ? (
+        <p className="mt-8 font-mono text-xs uppercase tracking-[0.16em] text-signal">
+          Signal acquired. Check your inbox.
+        </p>
+      ) : (
+        <form onSubmit={handleSubmit} className="mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
+          <label htmlFor="email" className="sr-only">
+            Email address
+          </label>
+          <input
+            id="email"
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@mission.control"
+            className="flex-1 border border-charcoal-600 bg-charcoal-900 px-4 py-3 font-mono text-sm text-signal placeholder:text-muted focus:border-charcoal-400 focus:outline-none"
+          />
+          <button
+            type="submit"
+            className="border border-charcoal-500 bg-transparent px-6 py-3 font-mono text-[11px] uppercase tracking-[0.16em] text-signal transition-colors hover:bg-charcoal-800"
+          >
+            Join waitlist
+          </button>
+        </form>
+      )}
     </section>
   )
 }

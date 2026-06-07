@@ -9,9 +9,15 @@ import { SponsorsPage } from './pages/SponsorsPage'
 import { TransmissionDetailPage } from './pages/TransmissionDetailPage'
 import { TransmissionsPage } from './pages/TransmissionsPage'
 
+function routerBasename(): string | undefined {
+  const base = import.meta.env.BASE_URL ?? '/'
+  const trimmed = base.replace(/\/$/, '')
+  return trimmed === '' || trimmed === '.' ? undefined : trimmed
+}
+
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={routerBasename()}>
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<HomePage />} />

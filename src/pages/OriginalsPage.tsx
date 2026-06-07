@@ -3,11 +3,9 @@ import { formatDuration } from '../lib/format'
 
 export function OriginalsPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
-      <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
-        SpaceRadio Originals
-      </h1>
-      <p className="mt-3 max-w-xl text-muted">
+    <div className="px-6 py-12 sm:px-10 lg:px-16">
+      <h1 className="page-heading">SpaceRadio Originals</h1>
+      <p className="mt-4 max-w-xl text-charcoal-200">
         Human-curated catalog with documented provenance. Demo build uses placeholder audio.
       </p>
 
@@ -17,7 +15,7 @@ export function OriginalsPage() {
             key={track.id}
             className="grid gap-4 rounded-2xl border border-signal/10 bg-void-panel p-5 md:grid-cols-[1fr_2fr_auto]"
           >
-            <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-gradient-to-br from-orbit/30 to-beam/20 font-mono text-xs text-signal">
+            <div className="flex h-20 w-20 items-center justify-center rounded-xl border border-charcoal-600/40 bg-gradient-to-br from-charcoal-700 to-charcoal-800 font-mono text-xs text-orbit">
               {track.catalogId.replace('SR-OR-', '')}
             </div>
             <div>

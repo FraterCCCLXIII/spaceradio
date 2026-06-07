@@ -33,12 +33,10 @@ export function Waveform({ className = '' }: { className?: string }) {
         const y = (height - h) / 2
 
         const gradient = ctx.createLinearGradient(0, y, 0, y + h)
-        gradient.addColorStop(0, '#5ec8e8')
-        gradient.addColorStop(1, '#e8b84a')
+        gradient.addColorStop(0, '#c8c8c6')
+        gradient.addColorStop(1, '#5a5a58')
         ctx.fillStyle = gradient
-        ctx.beginPath()
-        ctx.roundRect(x, y, barW, h, 2)
-        ctx.fill()
+        ctx.fillRect(x, y, barW, h)
       }
 
       frameRef.current = requestAnimationFrame(draw)

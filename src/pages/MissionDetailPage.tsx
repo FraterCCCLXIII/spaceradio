@@ -34,7 +34,7 @@ export function MissionDetailPage() {
           <p className="font-mono text-[10px] uppercase tracking-wider text-beam">
             {mission.tieIn}
           </p>
-          <h1 className="mt-2 text-3xl font-semibold md:text-4xl">{mission.name}</h1>
+          <h1 className="page-heading mt-2">{mission.name}</h1>
         </div>
       </div>
 
@@ -47,7 +47,7 @@ export function MissionDetailPage() {
           </p>
         )}
 
-        <h2 className="mt-12 text-xl font-semibold">Mission rotation</h2>
+        <h2 className="mt-12 font-display text-xl font-normal uppercase tracking-wide text-signal">Mission rotation</h2>
         <ul className="mt-4 space-y-3">
           {missionTracks.map((t) =>
             t ? (

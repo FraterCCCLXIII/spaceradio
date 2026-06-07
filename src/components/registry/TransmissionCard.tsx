@@ -10,9 +10,9 @@ interface TransmissionCardProps {
 
 const statusColors: Record<string, string> = {
   scheduled: 'text-muted',
-  active: 'text-beam',
-  completed: 'text-signal',
-  failed: 'text-red-400',
+  active: 'text-signal',
+  completed: 'text-orbit',
+  failed: 'text-muted',
 }
 
 export function TransmissionCard({ transmission: tx }: TransmissionCardProps) {

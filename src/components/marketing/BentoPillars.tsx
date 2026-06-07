@@ -6,21 +6,21 @@ const pillars = [
     description: '24/7 original programming tied to real missions and cosmic sound.',
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80',
     link: '/listen',
-    tint: 'from-beam/20',
+    tint: 'from-charcoal-600/40',
   },
   {
     title: 'AI Space Music Lab',
     description: 'Human-curated compositions with documented provenance and Sound DNA.',
     image: 'https://images.unsplash.com/photo-1478737270239-2f02ca77fc67?w=800&q=80',
     link: '/originals',
-    tint: 'from-orbit/30',
+    tint: 'from-charcoal-500/35',
   },
   {
     title: 'Eternity Archive',
     description: 'Lossless masters preserved for institutions and open mirrors.',
     image: 'https://images.unsplash.com/photo-1507400492013-162706c8c161?w=800&q=80',
     link: '/transmissions',
-    tint: 'from-signal/20',
+    tint: 'from-charcoal-700/45',
   },
 ]
 

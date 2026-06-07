@@ -3,30 +3,33 @@ import { missions } from '../lib/demo-data'
 
 export function MissionsPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
-      <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">Missions</h1>
-      <p className="mt-3 max-w-xl text-muted">
+    <div className="px-6 py-12 sm:px-10 lg:px-16">
+      <h1 className="page-heading">Missions</h1>
+      <p className="mt-4 max-w-xl text-charcoal-200">
         Themed programming blocks tied to space missions, science, and sponsor packages.
       </p>
 
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-12 grid gap-px bg-charcoal-700/40 sm:grid-cols-2">
         {missions.map((m) => (
           <Link
             key={m.slug}
             to={`/missions/${m.slug}`}
-            className="group overflow-hidden rounded-2xl border border-signal/10 bg-void-panel transition-colors hover:border-signal/30"
+            className="group relative min-h-[280px] overflow-hidden bg-void"
           >
             <img
               src={m.imageUrl}
               alt=""
-              className="h-44 w-full object-cover opacity-70 transition-opacity group-hover:opacity-90"
+              className="absolute inset-0 h-full w-full object-cover opacity-50 transition-opacity group-hover:opacity-70"
             />
-            <div className="p-5">
-              <h2 className="text-lg font-semibold">{m.name}</h2>
-              <p className="mt-2 text-sm text-muted line-clamp-2">{m.description}</p>
-              <p className="mt-3 font-mono text-[10px] uppercase tracking-wider text-orbit">
+            <div className="absolute inset-0 bg-gradient-to-t from-void via-void/60 to-transparent" />
+            <div className="relative flex h-full min-h-[280px] flex-col justify-end p-6">
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-orbit">
                 {m.tieIn}
               </p>
+              <h2 className="mt-2 font-display text-xl font-normal uppercase tracking-wide text-signal">
+                {m.name}
+              </h2>
+              <p className="mt-2 text-sm text-charcoal-200 line-clamp-2">{m.description}</p>
             </div>
           </Link>
         ))}

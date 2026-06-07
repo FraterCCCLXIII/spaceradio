@@ -11,8 +11,8 @@ export function TierBadge({ tier, active }: TierBadgeProps) {
     <span
       className={`inline-flex items-center rounded-full px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider ${
         active
-          ? 'bg-beam/20 text-beam'
-          : 'bg-white/5 text-muted'
+          ? 'bg-charcoal-600/80 text-signal'
+          : 'bg-charcoal-700/40 text-muted'
       }`}
     >
       T{tier} · {tierLabel(tier)}

@@ -22,11 +22,9 @@ export function TransmissionsPage() {
   ]
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
-      <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
-        Transmission Registry
-      </h1>
-      <p className="mt-3 max-w-2xl text-muted">
+    <div className="px-6 py-12 sm:px-10 lg:px-16">
+      <h1 className="page-heading">Transmission Registry</h1>
+      <p className="mt-4 max-w-2xl text-charcoal-200">
         Append-only log of off-Earth broadcast events. Tier labels are explicit.
         Tier 1 entries are symbolic registry beams unless stated otherwise.
       </p>
@@ -40,7 +38,7 @@ export function TransmissionsPage() {
             className={`rounded-full px-4 py-1.5 font-mono text-[10px] uppercase tracking-wider transition-colors ${
               filter === p.value
                 ? 'bg-signal text-void'
-                : 'border border-signal/20 text-muted hover:text-[#e8eaed]'
+                : 'border border-charcoal-500/50 text-muted hover:text-signal'
             }`}
           >
             {p.label}

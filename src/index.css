@@ -3,15 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --color-void: #0a0e17;
-  --color-void-elevated: #12182a;
-  --color-void-panel: #1a2236;
-  --color-signal: #e8b84a;
-  --color-beam: #5ec8e8;
-  --color-orbit: #6b5b95;
-  --color-text: #e8eaed;
-  --color-muted: #8b95a8;
-  --color-border: rgba(232, 184, 74, 0.12);
+  --color-void: #1a1a18;
+  --color-void-elevated: #242422;
+  --color-void-panel: #2e2e2c;
+  --color-signal: #e8e8e6;
+  --color-beam: #c4c4c2;
+  --color-orbit: #949492;
+  --color-muted: #6e6e6c;
+  --color-border: rgba(232, 232, 230, 0.08);
 }
 
 @layer base {
@@ -20,17 +19,33 @@
   }
 
   body {
-    @apply bg-void font-sans text-[#e8eaed] antialiased;
+    @apply bg-void font-sans text-charcoal-100 antialiased;
+  }
+
+  img {
+    filter: grayscale(100%) contrast(1.05) brightness(0.75);
   }
 
   ::selection {
-    @apply bg-signal/30 text-white;
+    @apply bg-charcoal-600 text-charcoal-50;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .logo-text {
+    @apply font-display text-sm uppercase tracking-logo text-signal sm:text-base;
+  }
+
+  .page-heading {
+    @apply font-display text-3xl font-normal uppercase tracking-wide text-signal sm:text-4xl;
+  }
+
+  .section-heading {
+    @apply font-display text-3xl font-normal uppercase tracking-wide text-signal sm:text-4xl lg:text-5xl;
   }
 }
 

@@ -36,7 +36,7 @@ export function TransmissionDetailPage() {
         </div>
 
         {tx.demo && (
-          <p className="mt-4 rounded-lg bg-beam/10 px-3 py-2 font-mono text-xs text-beam">
+          <p className="mt-4 rounded-lg bg-charcoal-700/50 px-3 py-2 font-mono text-xs text-orbit">
             Demo registry entry. Symbolic Tier 1 unless labeled Tier 3+.
           </p>
         )}

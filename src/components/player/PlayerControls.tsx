@@ -43,7 +43,7 @@ export function PlayerControls({ large }: { large?: boolean }) {
             type="button"
             onClick={handleMute}
             aria-label={muted ? 'Unmute' : 'Mute'}
-            className="text-muted hover:text-[#e8eaed]"
+            className="text-muted hover:text-signal"
           >
             {muted || volume === 0 ? (
               <SpeakerSlash size={20} />
@@ -61,7 +61,7 @@ export function PlayerControls({ large }: { large?: boolean }) {
               setMuted(false)
               setVolume(parseFloat(e.target.value))
             }}
-            className="h-1 w-28 cursor-pointer appearance-none rounded-full bg-white/10 accent-signal"
+            className="h-1 w-28 cursor-pointer appearance-none rounded-full bg-charcoal-600 accent-signal"
             aria-label="Volume"
           />
         </div>
@@ -76,7 +76,7 @@ export function PlayerError() {
   if (status !== 'error' || !errorMessage) return null
 
   return (
-    <div className="flex items-center justify-between gap-3 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-2 text-sm">
+    <div className="flex items-center justify-between gap-3 rounded-lg border border-charcoal-500/40 bg-charcoal-700/30 px-4 py-2 text-sm">
       <span>{errorMessage}</span>
       <Button variant="secondary" className="!px-4 !py-1.5 text-xs" onClick={() => void play()}>
         Retry

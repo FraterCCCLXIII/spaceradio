@@ -5,22 +5,40 @@ export default {
     extend: {
       colors: {
         void: {
-          DEFAULT: '#0a0e17',
-          elevated: '#12182a',
-          panel: '#1a2236',
+          DEFAULT: '#1a1a18',
+          elevated: '#242422',
+          panel: '#2e2e2c',
+          surface: '#383836',
         },
-        signal: '#e8b84a',
-        beam: '#5ec8e8',
-        orbit: '#6b5b95',
-        muted: '#8b95a8',
+        signal: '#e8e8e6',
+        beam: '#c4c4c2',
+        orbit: '#949492',
+        muted: '#6e6e6c',
+        charcoal: {
+          50: '#f4f4f2',
+          100: '#e8e8e6',
+          200: '#d0d0ce',
+          300: '#b0b0ae',
+          400: '#8e8e8c',
+          500: '#727270',
+          600: '#5a5a58',
+          700: '#484846',
+          800: '#383836',
+          900: '#2e2e2c',
+          950: '#1a1a18',
+        },
       },
       fontFamily: {
-        sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+        sans: ['"Barlow"', 'system-ui', 'sans-serif'],
+        display: ['"Abel"', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+      },
+      letterSpacing: {
+        logo: '0.28em',
       },
       animation: {
         'pulse-beam': 'pulse-beam 2s ease-in-out infinite',
-        'ticker': 'ticker 40s linear infinite',
+        ticker: 'ticker 40s linear infinite',
       },
       keyframes: {
         'pulse-beam': {

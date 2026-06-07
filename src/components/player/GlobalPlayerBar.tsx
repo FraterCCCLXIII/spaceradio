@@ -34,7 +34,7 @@ export function GlobalPlayerBar() {
 
         <Link
           to="/listen"
-          className="hidden rounded-full p-2 text-muted transition-colors hover:bg-white/5 hover:text-beam sm:block"
+          className="hidden rounded-full p-2 text-muted transition-colors hover:bg-charcoal-700/50 hover:text-signal sm:block"
           aria-label="Expand player"
         >
           <CaretUp size={18} />

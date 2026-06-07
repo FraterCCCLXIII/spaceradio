@@ -13,12 +13,12 @@ export function TransmissionTicker() {
           <Link
             key={`${tx.id}-${i}`}
             to={`/transmissions/${tx.id}`}
-            className="mx-8 inline-flex items-center gap-3 font-mono text-xs text-muted transition-colors hover:text-beam"
+            className="mx-8 inline-flex items-center gap-3 font-mono text-xs text-muted transition-colors hover:text-signal"
           >
             <span className="text-signal">{tx.id}</span>
             <TierBadge tier={tx.tier} active={tx.status === 'active'} />
             <span>{formatUtc(tx.scheduledAtUtc)}</span>
-            <span className="text-white/30">·</span>
+            <span className="text-charcoal-500">·</span>
           </Link>
         ))}
       </div>
