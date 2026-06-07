@@ -1,5 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { Link } from 'react-router-dom'
+import { PlayerLaunchBlocker } from '../launch/PlayerLaunchBlocker'
+import { useLaunchCountdown } from '../../hooks/useLaunchCountdown'
 import { usePlayerStore } from '../../store/playerStore'
 import { LiveIndicator } from '../player/LiveIndicator'
 import { PlayerControls } from '../player/PlayerControls'
@@ -13,7 +15,9 @@ const HeroWarp = lazy(() =>
 export function HeroSection() {
   const nowPlaying = usePlayerStore((s) => s.nowPlaying)
   const status = usePlayerStore((s) => s.status)
+  const launch = useLaunchCountdown()
   const live = status === 'playing' || status === 'buffering' || status === 'connecting'
+  const playerLocked = !launch.live
 
   return (
     <section id="hero" className="relative flex min-h-[100dvh] items-end overflow-hidden">
@@ -51,7 +55,12 @@ export function HeroSection() {
           </div>
         </div>
 
-        <div className="border border-charcoal-600/40 bg-void/60 p-5 backdrop-blur-md sm:p-6">
+        <div className="relative border border-charcoal-600/40 bg-void/60 p-5 backdrop-blur-md sm:p-6">
+          <PlayerLaunchBlocker variant="card" />
+          <div
+            className={playerLocked ? 'pointer-events-none select-none opacity-40' : undefined}
+            aria-hidden={playerLocked}
+          >
           <div className="mb-4 flex items-center justify-between">
             <LiveIndicator live={live} />
             <span className="font-mono text-[10px] text-muted">
@@ -69,6 +78,7 @@ export function HeroSection() {
           </div>
           <div className="mt-4">
             <PlayerControls />
+          </div>
           </div>
         </div>
       </div>

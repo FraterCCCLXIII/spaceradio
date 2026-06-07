@@ -31,6 +31,7 @@ export interface Mission {
   tierTarget?: TransmissionTier
   tagline?: string
   stationBlock?: string
+  programSlug?: string
 }
 
 export interface Transmission {

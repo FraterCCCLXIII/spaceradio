@@ -32,7 +32,7 @@ export function PlayerSidebar() {
         </NavLink>
       </div>
 
-      <nav className="flex-1 space-y-1 px-3">
+      <nav className="scroll-list min-h-0 flex-1 space-y-1 px-3">
         {navItems.map(({ to, label, icon: Icon, end }) => (
           <NavLink
             key={to}

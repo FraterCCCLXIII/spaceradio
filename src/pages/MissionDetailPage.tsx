@@ -158,16 +158,26 @@ export function MissionDetailPage() {
               )}
             </div>
 
-            {whitepaperHref && (
-              <a
-                href={whitepaperHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-block font-mono text-xs uppercase tracking-[0.16em] text-signal underline decoration-charcoal-500 underline-offset-4 transition-colors hover:text-beam"
-              >
-                Read full whitepaper (markdown)
-              </a>
-            )}
+            <div className="mt-8 flex flex-wrap gap-4">
+              {mission.programSlug && (
+                <Link
+                  to={`/program/${mission.programSlug}`}
+                  className="inline-block font-mono text-xs uppercase tracking-[0.16em] text-signal underline decoration-charcoal-500 underline-offset-4 transition-colors hover:text-beam"
+                >
+                  Orchard Program whitepaper →
+                </Link>
+              )}
+              {whitepaperHref && (
+                <a
+                  href={whitepaperHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block font-mono text-xs uppercase tracking-[0.16em] text-muted underline decoration-charcoal-500 underline-offset-4 transition-colors hover:text-signal"
+                >
+                  Mission concept doc (markdown)
+                </a>
+              )}
+            </div>
           </section>
         )}
 

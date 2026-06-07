@@ -1,6 +1,7 @@
 import { CaretRight } from '@phosphor-icons/react'
 import { Link } from 'react-router-dom'
 import type { ReactNode } from 'react'
+import { ScrollRow } from './ScrollRow'
 
 interface ContentRailProps {
   title: string
@@ -30,7 +31,7 @@ export function ContentRail({ title, subtitle, href, linkLabel = 'Show all', chi
           </Link>
         )}
       </div>
-      <div className="scrollbar-rail flex gap-4 overflow-x-auto pb-2">{children}</div>
+      <ScrollRow>{children}</ScrollRow>
     </section>
   )
 }

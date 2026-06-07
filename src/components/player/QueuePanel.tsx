@@ -62,7 +62,7 @@ export function QueuePanel({ open, onClose }: QueuePanelProps) {
           </Link>
         </div>
 
-        <div className="scrollbar-panel flex-1 overflow-y-auto px-2 py-3">
+        <div className="scroll-list flex-1 px-2 py-3">
           <p className="px-3 pb-2 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
             Up next
           </p>

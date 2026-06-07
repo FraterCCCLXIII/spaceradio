@@ -8,6 +8,12 @@ export function Footer() {
           © 2026 SpaceRadio
         </p>
         <div className="flex flex-wrap gap-6 font-mono text-[11px] uppercase tracking-[0.16em]">
+          <Link to="/manifesto" className="text-muted transition-colors hover:text-signal">
+            Manifesto
+          </Link>
+          <Link to="/program" className="text-muted transition-colors hover:text-signal">
+            Program
+          </Link>
           <Link to="/transmissions" className="text-muted transition-colors hover:text-signal">
             Registry
           </Link>

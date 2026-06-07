@@ -74,16 +74,26 @@ export function AppMissionDetailPage() {
             <p className="mt-4 text-sm leading-relaxed text-charcoal-200">
               {whitepaper.executiveSummary}
             </p>
-            {whitepaperHref && (
-              <a
-                href={whitepaperHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-signal underline decoration-charcoal-500 underline-offset-4 hover:text-beam"
-              >
-                Read full whitepaper →
-              </a>
-            )}
+            <div className="mt-4 flex flex-wrap gap-3">
+              {mission.programSlug && (
+                <Link
+                  to={`/program/${mission.programSlug}`}
+                  className="inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-signal underline decoration-charcoal-500 underline-offset-4 hover:text-beam"
+                >
+                  Orchard Program whitepaper →
+                </Link>
+              )}
+              {whitepaperHref && (
+                <a
+                  href={whitepaperHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-muted underline decoration-charcoal-500 underline-offset-4 hover:text-signal"
+                >
+                  Concept doc (markdown)
+                </a>
+              )}
+            </div>
           </section>
         )}
 

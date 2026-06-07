@@ -1,4 +1,6 @@
+import { HomeLaunchModal } from '../components/launch/HomeLaunchModal'
 import { HeroSection } from '../components/marketing/HeroSection'
+import { OrchardProgramSection } from '../components/marketing/OrchardProgramSection'
 import { MissionSections } from '../components/marketing/MissionSections'
 import { OriginalsRail } from '../components/marketing/OriginalsRail'
 import { SponsorLogos } from '../components/marketing/SponsorLogos'
@@ -7,8 +9,10 @@ import { WaitlistForm } from '../components/marketing/WaitlistForm'
 export function HomePage() {
   return (
     <>
+      <HomeLaunchModal />
       <HeroSection />
       <MissionSections />
+      <OrchardProgramSection />
 
       <section className="border-t border-charcoal-700/40 bg-void-elevated px-6 py-20 sm:px-10 lg:px-16">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-orbit">

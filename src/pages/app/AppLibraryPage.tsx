@@ -47,7 +47,7 @@ export function AppLibraryPage() {
           <span>Title</span>
           <span className="w-12 text-right">Time</span>
         </div>
-        <div className="divide-y divide-charcoal-700/30">
+        <div className="scroll-list max-h-[min(60vh,640px)] divide-y divide-charcoal-700/30">
           {filtered.map((track, i) => (
             <TrackRow key={track.id} track={track} index={i + 1} showIndex showDuration />
           ))}

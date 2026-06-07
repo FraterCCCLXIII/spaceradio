@@ -11,7 +11,7 @@ export function TeamPage() {
         and broadcast.
       </p>
 
-      <div className="mt-14 grid gap-12 md:grid-cols-2 md:gap-10 lg:gap-16">
+      <div className="mt-10 flex flex-wrap gap-8 sm:gap-10">
         {teamMembers.map((member) => (
           <TeamMemberCard key={member.id} member={member} />
         ))}

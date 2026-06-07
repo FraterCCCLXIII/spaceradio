@@ -200,6 +200,7 @@ export const missions: Mission[] = [
     tierTarget: 4,
     tagline: 'Music aligned to the star.',
     stationBlock: 'Helios Hour',
+    programSlug: 'wp-3-solar-gravitational-lens',
   },
   {
     slug: 'eidolon-mesh',
@@ -215,6 +216,7 @@ export const missions: Mission[] = [
     tierTarget: 2,
     tagline: 'Ceremony + proof at planetary scale.',
     stationBlock: 'Eidolon Open Hour',
+    programSlug: 'wp-4-orchard-network',
   },
   {
     slug: 'mnemosyne-cube',
@@ -230,6 +232,7 @@ export const missions: Mission[] = [
     tierTarget: 3,
     tagline: 'Music born in orbit.',
     stationBlock: 'Mnemosyne Sol',
+    programSlug: 'wp-4-orchard-network',
   },
 ]
 

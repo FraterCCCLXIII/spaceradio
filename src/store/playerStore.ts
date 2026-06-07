@@ -4,6 +4,7 @@ import {
   buildNowPlaying,
   getRotationIndex,
 } from '../lib/demo-data'
+import { isLaunchLive } from '../lib/launch'
 import type { NowPlaying, PlayerStatus } from '../lib/types'
 
 const VOLUME_KEY = 'spaceradio-volume'
@@ -110,6 +111,12 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   },
 
   play: async () => {
+    if (!isLaunchLive()) {
+      getAudio().pause()
+      set({ status: 'idle', errorMessage: null })
+      return
+    }
+
     const el = getAudio()
     const { nowPlaying } = get()
     set({ status: 'connecting', errorMessage: null })

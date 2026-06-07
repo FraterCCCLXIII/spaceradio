@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
+import { useLaunchCountdown } from '../../hooks/useLaunchCountdown'
 import { usePlayerStore } from '../../store/playerStore'
 import { GlobalPlayerBar } from '../player/GlobalPlayerBar'
 import { Footer } from './Footer'
@@ -7,6 +8,8 @@ import { SiteNav } from './SiteNav'
 
 export function Layout() {
   const init = usePlayerStore((s) => s.init)
+  const pause = usePlayerStore((s) => s.pause)
+  const launch = useLaunchCountdown()
   const location = useLocation()
   const isHome = location.pathname === '/'
   const [homePastHero, setHomePastHero] = useState(false)
@@ -14,6 +17,10 @@ export function Layout() {
   useEffect(() => {
     init()
   }, [init])
+
+  useEffect(() => {
+    if (!launch.live) pause()
+  }, [launch.live, pause])
 
   useEffect(() => {
     if (!isHome) {

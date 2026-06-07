@@ -88,7 +88,7 @@ export function AppNowPlayingPage() {
             <h2 className="font-display text-sm font-normal uppercase tracking-wide text-signal">
               Up next
             </h2>
-            <div className="mt-3 space-y-1">
+            <div className="scroll-list mt-3 max-h-72 space-y-1">
               {nowPlaying.upNext.map((track, i) => (
                 <TrackRow key={track.id} track={track} index={i + 1} showIndex showDuration />
               ))}
