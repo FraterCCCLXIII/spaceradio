@@ -58,9 +58,9 @@ function resolveAudioSrc(url: string): string {
   }
 }
 
-/** macOS stores some filenames in NFD; browsers request NFC. */
+/** Normalize to NFC so URLs match Linux/git static hosting (Vercel). */
 function resolvePlaybackSrc(url: string): string {
-  return resolveAudioSrc(url).normalize('NFD')
+  return resolveAudioSrc(url).normalize('NFC')
 }
 
 function stopCurrentPlayback(): void {

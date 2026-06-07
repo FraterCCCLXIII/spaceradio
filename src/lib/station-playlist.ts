@@ -545,7 +545,7 @@ const PLAYER_SOURCES: StationSource[] = [
   },
   {
     id: '26',
-    filename: '息がある。(Iki ga aru)  There is Breath.mp3',
+    filename: '息がある。(Iki ga aru)  There is Breath.mp3',
     title: '息がある。(Iki ga aru) — There is Breath',
     description:
       'The Japanese art of breath as being — every exhalation a universe released, every inhalation a cosmos born.',
@@ -575,6 +575,7 @@ const MISSION_SLUGS = [
 
 function stationAudioUrl(folder: string, filename: string): string {
   const encoded = filename
+    .normalize('NFC')
     .split('/')
     .map((part) => encodeURIComponent(part))
     .join('/')
