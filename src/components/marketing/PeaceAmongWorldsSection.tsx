@@ -6,7 +6,7 @@ export function PeaceAmongWorldsSection() {
       className="overflow-hidden border-y-4 border-black"
       aria-labelledby="peace-among-worlds-heading"
     >
-      <div className="bg-[#ffd400] px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
+      <div className="bg-white px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
         <div className="mx-auto max-w-6xl text-center">
           <PeaceAmongWorldsIcon className="mx-auto h-24 w-auto text-black sm:h-32 lg:h-40" />
           <p className="mt-6 font-mono text-xs font-bold uppercase tracking-[0.35em] text-black/70 sm:mt-8 sm:text-sm">

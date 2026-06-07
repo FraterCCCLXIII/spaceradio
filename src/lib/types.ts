@@ -61,7 +61,6 @@ export interface NowPlaying {
   mission: Mission
   show: Show
   startedAtUtc: string
-  listenersEstimate: number
   transmission?: Transmission
   upNext: Track[]
 }

@@ -3,6 +3,7 @@ import { ContentRail } from '../../components/player/ContentRail'
 import { LiveIndicator } from '../../components/player/LiveIndicator'
 import { TrackArtwork } from '../../components/player/TrackArtwork'
 import { missions, shows, tracks } from '../../lib/demo-data'
+import { formatListenerCount } from '../../lib/listener-presence'
 import { formatUtc } from '../../lib/format'
 import { usePlayerStore } from '../../store/playerStore'
 
@@ -10,7 +11,7 @@ const programmingMissions = missions.filter((m) => !m.concept)
 const conceptMissions = missions.filter((m) => m.concept)
 
 export function AppStationPage() {
-  const { nowPlaying, status } = usePlayerStore()
+  const { nowPlaying, status, listenerCount } = usePlayerStore()
   const live = status === 'playing' || status === 'buffering' || status === 'connecting'
 
   return (
@@ -24,7 +25,7 @@ export function AppStationPage() {
         <div className="flex flex-wrap items-center gap-3">
           <LiveIndicator live={live} />
           <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
-            {formatUtc(nowPlaying.startedAtUtc)} · {nowPlaying.listenersEstimate} listeners
+            {formatUtc(nowPlaying.startedAtUtc)} · {formatListenerCount(listenerCount)}
           </p>
         </div>
 

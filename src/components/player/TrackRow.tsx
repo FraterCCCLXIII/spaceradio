@@ -22,7 +22,7 @@ export function TrackRow({
   to,
   active,
 }: TrackRowProps) {
-  const { nowPlaying, status, toggle } = usePlayerStore()
+  const { nowPlaying, status, toggle, playTrack } = usePlayerStore()
   const isCurrent = active ?? nowPlaying.track.id === track.id
   const playing = isCurrent && (status === 'playing' || status === 'buffering')
 
@@ -41,7 +41,11 @@ export function TrackRow({
           onClick={(e) => {
             e.preventDefault()
             e.stopPropagation()
-            void toggle()
+            if (isCurrent) {
+              void toggle()
+            } else {
+              void playTrack(track.id)
+            }
           }}
           className={`${showIndex && !isCurrent ? 'hidden group-hover:flex' : 'flex'} h-8 w-8 items-center justify-center text-signal`}
           aria-label={playing ? 'Pause' : 'Play'}

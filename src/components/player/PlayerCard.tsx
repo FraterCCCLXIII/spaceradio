@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { formatListenerCount } from '../../lib/listener-presence'
 import { usePlayerStore } from '../../store/playerStore'
 import { Panel } from '../ui/Panel'
 import { LiveIndicator } from './LiveIndicator'
@@ -8,7 +9,7 @@ import { TrackArtwork } from './TrackArtwork'
 import { Waveform } from './Waveform'
 
 export function PlayerCard() {
-  const { nowPlaying, status } = usePlayerStore()
+  const { nowPlaying, status, listenerCount } = usePlayerStore()
   const live = status === 'playing' || status === 'buffering' || status === 'connecting'
 
   return (
@@ -16,7 +17,7 @@ export function PlayerCard() {
       <div className="mb-4 flex items-center justify-between">
         <LiveIndicator live={live} />
         <span className="font-mono text-[10px] text-muted">
-          {nowPlaying.listenersEstimate} listeners
+          {formatListenerCount(listenerCount)}
         </span>
       </div>
 
@@ -27,7 +28,7 @@ export function PlayerCard() {
         </div>
       </div>
 
-      <div className="mb-4 overflow-hidden rounded-xl bg-void-elevated p-3">
+      <div className="mb-4 overflow-hidden">
         <Waveform />
       </div>
       <div className="mt-5 space-y-3">

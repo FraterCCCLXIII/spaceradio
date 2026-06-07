@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom'
 import { PlayerLaunchBlocker } from '../launch/PlayerLaunchBlocker'
 import { useLaunchCountdown } from '../../hooks/useLaunchCountdown'
 import { APP_LAUNCH_MODAL_KEY } from '../../lib/launch'
+import { canPlayStation } from '../../lib/station-rotation'
 import { usePlayerStore } from '../../store/playerStore'
 import { PlayerAppBar } from './PlayerAppBar'
 import { PlayerMobileNav } from './PlayerMobileNav'
@@ -22,7 +23,8 @@ export function PlayerLayout() {
       return false
     }
   })
-  const playerLocked = !launch.live
+  const stationLive = canPlayStation()
+  const playerLocked = !launch.live && !stationLive
   const uiLocked = playerLocked && !launchModalDismissed
 
   useEffect(() => {

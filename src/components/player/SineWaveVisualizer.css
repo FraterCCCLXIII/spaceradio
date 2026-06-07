@@ -1,8 +1,8 @@
 .sine-wave-viz {
   display: block;
   width: 100%;
-  height: 4rem;
   max-width: 100%;
+  overflow: hidden;
 }
 
 .sine-wave-viz line {
@@ -15,6 +15,7 @@
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke: #e8e8e6;
+  vector-effect: non-scaling-stroke;
 }
 
 @media (min-width: 640px) {

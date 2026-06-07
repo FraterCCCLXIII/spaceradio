@@ -8,11 +8,12 @@ import { TrackRow } from '../../components/player/TrackRow'
 import { Waveform } from '../../components/player/Waveform'
 import { Panel } from '../../components/ui/Panel'
 import { shows } from '../../lib/demo-data'
+import { formatListenerCount } from '../../lib/listener-presence'
 import { formatUtc } from '../../lib/format'
 import { usePlayerStore } from '../../store/playerStore'
 
 export function AppNowPlayingPage() {
-  const { nowPlaying, status } = usePlayerStore()
+  const { nowPlaying, status, listenerCount } = usePlayerStore()
   const live = status === 'playing' || status === 'buffering' || status === 'connecting'
 
   return (
@@ -30,7 +31,7 @@ export function AppNowPlayingPage() {
       </div>
 
       <p className="mt-2 font-mono text-[10px] text-muted">
-        {formatUtc(nowPlaying.startedAtUtc)} · {nowPlaying.listenersEstimate} listeners ·{' '}
+        {formatUtc(nowPlaying.startedAtUtc)} · {formatListenerCount(listenerCount)} ·{' '}
         {nowPlaying.show.title}
       </p>
 
@@ -43,7 +44,7 @@ export function AppNowPlayingPage() {
               className="mx-auto mb-8 h-56 w-56 border border-charcoal-600/50 sm:h-72 sm:w-72"
             />
 
-            <div className="mb-6 overflow-hidden rounded-xl bg-void-elevated p-4">
+            <div className="mb-6 overflow-hidden">
               <Waveform className="mx-auto" />
             </div>
 

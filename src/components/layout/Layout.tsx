@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { useLaunchCountdown } from '../../hooks/useLaunchCountdown'
+import { canPlayStation } from '../../lib/station-rotation'
 import { usePlayerStore } from '../../store/playerStore'
 import { GlobalPlayerBar } from '../player/GlobalPlayerBar'
 import { Footer } from './Footer'
@@ -19,7 +20,7 @@ export function Layout() {
   }, [init])
 
   useEffect(() => {
-    if (!launch.live) pause()
+    if (!launch.live && !canPlayStation()) pause()
   }, [launch.live, pause])
 
   useEffect(() => {

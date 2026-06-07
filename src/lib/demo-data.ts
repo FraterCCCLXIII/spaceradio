@@ -1,130 +1,18 @@
+import { stationTracks } from './station-playlist'
+import {
+  advanceRotation,
+  getRotationIndex,
+  syncRotationFromClock,
+} from './station-rotation'
 import type { Mission, NowPlaying, Show, Track, Transmission } from './types'
 
-const DEMO_AUDIO = [
-  'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-  'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-  'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
-  'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
-  'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
-  'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
-  'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
-  'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
-]
+export const tracks: Track[] = stationTracks
 
-export const tracks: Track[] = [
-  {
-    id: 't1',
-    title: 'Signal Lock',
-    artist: 'SpaceRadio Originals',
-    catalogId: 'SR-OR-001',
-    durationSec: 312,
-    bpm: 72,
-    genre: 'space-ambient',
-    energy: 2,
-    missionSlug: 'deep-orbit',
-    curatorNote: 'Void-session pad stack tuned for Deep Orbit rotation.',
-    demoAudioUrl: DEMO_AUDIO[0],
-    artworkUrl: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&q=80',
-  },
-  {
-    id: 't2',
-    title: 'Apogee',
-    artist: 'SpaceRadio Originals',
-    catalogId: 'SR-OR-002',
-    durationSec: 284,
-    bpm: 88,
-    genre: 'mission-pulse',
-    energy: 3,
-    missionSlug: 'demo-flight',
-    curatorNote: 'Ascent energy for Launch Pad rotation.',
-    demoAudioUrl: DEMO_AUDIO[1],
-    artworkUrl: 'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=600&q=80',
-  },
-  {
-    id: 't3',
-    title: 'Terminus',
-    artist: 'SpaceRadio Originals',
-    catalogId: 'SR-OR-003',
-    durationSec: 420,
-    bpm: 58,
-    genre: 'void',
-    energy: 1,
-    missionSlug: 'deep-orbit',
-    curatorNote: 'Ultra-sparse long-form for Void Session.',
-    demoAudioUrl: DEMO_AUDIO[2],
-    artworkUrl: 'https://images.unsplash.com/photo-1457365050282-c53d772ef8b2?w=600&q=80',
-  },
-  {
-    id: 't4',
-    title: 'Goldstone Rain',
-    artist: 'SpaceRadio Originals',
-    catalogId: 'SR-OR-004',
-    durationSec: 256,
-    bpm: 94,
-    genre: 'mission-pulse',
-    energy: 4,
-    missionSlug: 'mars-relay',
-    curatorNote: 'Rhythmic forward motion without EDM cliché.',
-    demoAudioUrl: DEMO_AUDIO[3],
-    artworkUrl: 'https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=600&q=80',
-  },
-  {
-    id: 't5',
-    title: 'Ridge Line',
-    artist: 'SpaceRadio Originals',
-    catalogId: 'SR-OR-005',
-    durationSec: 198,
-    bpm: 80,
-    genre: 'docking',
-    energy: 3,
-    missionSlug: 'jwst',
-    curatorNote: 'Warm harmonic arrival piece for Deep Sky.',
-    demoAudioUrl: DEMO_AUDIO[4],
-    artworkUrl: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=600&q=80',
-  },
-  {
-    id: 't6',
-    title: 'Pale Relay',
-    artist: 'SpaceRadio Originals',
-    catalogId: 'SR-OR-006',
-    durationSec: 360,
-    bpm: 65,
-    genre: 'space-ambient',
-    energy: 2,
-    missionSlug: 'voyager-tribute',
-    curatorNote: 'Interstellar context; sparse Morse motifs.',
-    demoAudioUrl: DEMO_AUDIO[5],
-    artworkUrl: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&q=80',
-  },
-  {
-    id: 't7',
-    title: 'Docking Ring',
-    artist: 'SpaceRadio Originals',
-    catalogId: 'SR-OR-007',
-    durationSec: 240,
-    bpm: 76,
-    genre: 'docking',
-    energy: 2,
-    missionSlug: 'artemis',
-    curatorNote: 'Resolving chords for lunar mission hour.',
-    demoAudioUrl: DEMO_AUDIO[6],
-    artworkUrl: 'https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=600&q=80',
-  },
-  {
-    id: 't8',
-    title: 'Burn Window',
-    artist: 'SpaceRadio Originals',
-    catalogId: 'SR-OR-008',
-    durationSec: 180,
-    bpm: 110,
-    genre: 'mission-pulse',
-    energy: 5,
-    missionSlug: 'commercial',
-    curatorNote: 'Launch-day energy; event rotation only.',
-    demoAudioUrl: DEMO_AUDIO[7],
-    artworkUrl: 'https://images.unsplash.com/photo-1517976487492-5750f3195933?w=600&q=80',
-  },
-]
+export { advanceRotation, getRotationIndex, syncRotationFromClock }
+
+function trackIdsForMission(slug: string): string[] {
+  return tracks.filter((track) => track.missionSlug === slug).map((track) => track.id)
+}
 
 export const missions: Mission[] = [
   {
@@ -133,7 +21,7 @@ export const missions: Mission[] = [
     description: 'Default ambient-space rotation. Slow, expansive beds for focus and wonder.',
     tieIn: 'Always-on station bed',
     imageUrl: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=1200&q=80',
-    trackIds: ['t1', 't3'],
+    trackIds: trackIdsForMission('deep-orbit'),
   },
   {
     slug: 'demo-flight',
@@ -141,7 +29,7 @@ export const missions: Mission[] = [
     description: 'Demonstration mission for SpaceRadio platform testing.',
     tieIn: 'Platform demo',
     imageUrl: 'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=1200&q=80',
-    trackIds: ['t2'],
+    trackIds: trackIdsForMission('demo-flight'),
   },
   {
     slug: 'mars-relay',
@@ -150,7 +38,7 @@ export const missions: Mission[] = [
     tieIn: 'Mars exploration',
     sponsor: '[Sponsor TBD]',
     imageUrl: 'https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=1200&q=80',
-    trackIds: ['t4'],
+    trackIds: trackIdsForMission('mars-relay'),
   },
   {
     slug: 'jwst',
@@ -158,7 +46,7 @@ export const missions: Mission[] = [
     description: 'Music for deep-field discovery and observatory releases.',
     tieIn: 'JWST imagery',
     imageUrl: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=1200&q=80',
-    trackIds: ['t5'],
+    trackIds: trackIdsForMission('jwst'),
   },
   {
     slug: 'artemis',
@@ -167,7 +55,7 @@ export const missions: Mission[] = [
     tieIn: 'Artemis program',
     sponsor: '[Sponsor TBD]',
     imageUrl: 'https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=1200&q=80',
-    trackIds: ['t7'],
+    trackIds: trackIdsForMission('artemis'),
   },
   {
     slug: 'voyager-tribute',
@@ -175,7 +63,7 @@ export const missions: Mission[] = [
     description: 'Interstellar context and long-horizon transmission thinking.',
     tieIn: 'Voyager heritage',
     imageUrl: 'https://images.unsplash.com/photo-1457365050282-c53d772ef8b2?w=1200&q=80',
-    trackIds: ['t6'],
+    trackIds: trackIdsForMission('voyager-tribute'),
   },
   {
     slug: 'commercial',
@@ -184,7 +72,7 @@ export const missions: Mission[] = [
     tieIn: 'Commercial launch',
     sponsor: '[Sponsor TBD]',
     imageUrl: 'https://images.unsplash.com/photo-1517976487492-5750f3195933?w=1200&q=80',
-    trackIds: ['t8'],
+    trackIds: trackIdsForMission('commercial'),
   },
   {
     slug: 'helios-relay',
@@ -243,7 +131,7 @@ export const transmissions: Transmission[] = [
     status: 'completed',
     scheduledAtUtc: '2026-06-21T12:00:00Z',
     completedAtUtc: '2026-06-21T12:00:42Z',
-    trackIds: ['t1'],
+    trackIds: tracks.slice(0, 1).map((t) => t.id),
     payloadChecksum: 'a3f8c2e91b047d6e8f2a1c9d4e7b0f3a8c5d2e1f9b4a7c0d3e6f8a1b2c5d8e9',
     publicNotes: 'Solstice symbolic beam. Tier 1 registry entry.',
     demo: true,
@@ -253,7 +141,7 @@ export const transmissions: Transmission[] = [
     tier: 1,
     status: 'active',
     scheduledAtUtc: '2026-06-06T14:00:00Z',
-    trackIds: ['t2'],
+    trackIds: trackIdsForMission('demo-flight'),
     payloadChecksum: 'b7e2d4f1a9c8e3b6d0f5a2c7e1b4d8f3a6c9e2b5d8f1a4c7e0b3d6f9a2c5e8',
     sponsor: '[Sponsor TBD]',
     publicNotes: 'Demo symbolic beam in progress.',
@@ -264,7 +152,7 @@ export const transmissions: Transmission[] = [
     tier: 1,
     status: 'scheduled',
     scheduledAtUtc: '2026-06-12T18:30:00Z',
-    trackIds: ['t5'],
+    trackIds: trackIdsForMission('jwst'),
     payloadChecksum: 'c1d9e7f3b5a2e8d4f6c0b3a7e1d9f5c2b8a4e6d0f3c7b9a2e5d8f1c4b7a0e3',
     publicNotes: 'Scheduled Tier 1 beam for Deep Sky session.',
     demo: true,
@@ -274,7 +162,7 @@ export const transmissions: Transmission[] = [
     tier: 2,
     status: 'scheduled',
     scheduledAtUtc: '2026-07-04T22:00:00Z',
-    trackIds: ['t4'],
+    trackIds: trackIdsForMission('mars-relay'),
     payloadChecksum: 'd4f2a8c6e0b3d7f1a5c9e2b8d4f6a0c3e7b1d5f9a2c6e8b0d4f7a1c5e9b2d6',
     publicNotes: 'Terrestrial RF window [Date TBD]. Partner ground station pending.',
     demo: true,
@@ -322,8 +210,6 @@ export const sponsorLogos = [
   { name: 'Nebula Systems', slug: 'nebula-systems' },
 ]
 
-let rotationIndex = 0
-
 export function getTrackById(id: string): Track | undefined {
   return tracks.find((t) => t.id === id)
 }
@@ -336,7 +222,10 @@ export function getTransmissionById(id: string): Transmission | undefined {
   return transmissions.find((t) => t.id === id)
 }
 
-export function buildNowPlaying(trackIndex = rotationIndex): NowPlaying {
+export function buildNowPlaying(
+  trackIndex = getRotationIndex(),
+  startedAtUtc?: string,
+): NowPlaying {
   const track = tracks[trackIndex % tracks.length]
   const mission = getMissionBySlug(track.missionSlug) ?? missions[0]
   const show = shows[0]
@@ -350,18 +239,8 @@ export function buildNowPlaying(trackIndex = rotationIndex): NowPlaying {
     track,
     mission,
     show,
-    startedAtUtc: new Date().toISOString(),
-    listenersEstimate: 142 + (trackIndex % 37),
+    startedAtUtc: startedAtUtc ?? new Date().toISOString(),
     transmission: activeTx,
     upNext,
   }
-}
-
-export function advanceRotation(): number {
-  rotationIndex = (rotationIndex + 1) % tracks.length
-  return rotationIndex
-}
-
-export function getRotationIndex(): number {
-  return rotationIndex
 }

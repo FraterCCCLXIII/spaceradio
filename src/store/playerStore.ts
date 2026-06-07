@@ -3,9 +3,21 @@ import {
   advanceRotation,
   buildNowPlaying,
   getRotationIndex,
+  syncRotationFromClock,
 } from '../lib/demo-data'
-import { isLaunchLive } from '../lib/launch'
-import type { NowPlaying, PlayerStatus } from '../lib/types'
+import { bindAudioAnalyser, resumeAudioAnalyser } from '../lib/audio-analyser'
+import {
+  initListenerPresence,
+  setListenerPresenceActive,
+} from '../lib/listener-presence'
+import {
+  canPlayStation,
+  findTrackIndex,
+  getClockPosition,
+  isBehindSchedule,
+  setRotationState,
+} from '../lib/station-rotation'
+import type { NowPlaying, PlayerStatus, Track } from '../lib/types'
 
 const VOLUME_KEY = 'spaceradio-volume'
 
@@ -25,6 +37,7 @@ function loadVolume(): number {
 let audio: HTMLAudioElement | null = null
 let rotationTimer: ReturnType<typeof setInterval> | null = null
 let initialized = false
+let advancingTrack = false
 
 function getAudio(): HTMLAudioElement {
   if (!audio) {
@@ -33,135 +46,301 @@ function getAudio(): HTMLAudioElement {
   return audio
 }
 
+export function getPlayerAudioElement(): HTMLAudioElement {
+  return getAudio()
+}
+
+function resolveAudioSrc(url: string): string {
+  try {
+    return new URL(url, window.location.href).href
+  } catch {
+    return url
+  }
+}
+
+/** macOS stores some filenames in NFD; browsers request NFC. */
+function resolvePlaybackSrc(url: string): string {
+  return resolveAudioSrc(url).normalize('NFD')
+}
+
+function stopCurrentPlayback(): void {
+  const el = getAudio()
+  el.pause()
+  el.currentTime = 0
+}
+
+function applyTrackToAudio(track: Track, offsetSec = 0): void {
+  const el = getAudio()
+  const playbackSrc = resolvePlaybackSrc(track.demoAudioUrl)
+  const currentSrc = el.src ? resolvePlaybackSrc(el.src) : ''
+
+  const seek = () => {
+    if (offsetSec > 0 && Number.isFinite(el.duration) && offsetSec < el.duration - 0.25) {
+      el.currentTime = offsetSec
+    }
+  }
+
+  if (currentSrc !== playbackSrc) {
+    el.pause()
+    el.src = playbackSrc
+    el.load()
+    el.addEventListener('loadedmetadata', seek, { once: true })
+  } else {
+    el.pause()
+    el.currentTime = offsetSec
+    seek()
+  }
+}
+
 interface PlayerState {
   status: PlayerStatus
   nowPlaying: NowPlaying
+  listenerCount: number
   volume: number
   errorMessage: string | null
   currentTimeSec: number
   durationSec: number
   init: () => void
   play: () => Promise<void>
+  playTrack: (trackId: string) => Promise<void>
   pause: () => void
   toggle: () => Promise<void>
   setVolume: (v: number) => void
   refreshNowPlaying: () => void
 }
 
-export const usePlayerStore = create<PlayerState>((set, get) => ({
-  status: 'idle',
-  nowPlaying: buildNowPlaying(getRotationIndex()),
-  volume: loadVolume(),
-  errorMessage: null,
-  currentTimeSec: 0,
-  durationSec: 0,
+export const usePlayerStore = create<PlayerState>((set, get) => {
+  const syncListenerPresence = (status: PlayerStatus) => {
+    setListenerPresenceActive(status === 'playing' || status === 'buffering')
+  }
 
-  init: () => {
-    if (initialized) return
-    initialized = true
+  const transitionToIndex = (
+    index: number,
+    offsetSec = 0,
+    startedAtUtc?: string,
+    options?: { keepStatus?: boolean },
+  ) => {
+    setRotationState(index, offsetSec)
+    const np = buildNowPlaying(index, startedAtUtc ?? new Date().toISOString())
+    const status = get().status
 
-    const el = getAudio()
-    const { volume, nowPlaying } = get()
+    set({
+      nowPlaying: np,
+      currentTimeSec: offsetSec,
+      durationSec: np.track.durationSec,
+      errorMessage: null,
+      status: options?.keepStatus && (status === 'playing' || status === 'buffering')
+        ? 'connecting'
+        : status,
+    })
+    applyTrackToAudio(np.track, offsetSec)
+    return np
+  }
 
-    el.volume = volume
-    el.src = nowPlaying.track.demoAudioUrl
+  const playNextTrack = async () => {
+    if (advancingTrack) return
+    advancingTrack = true
 
-    el.addEventListener('playing', () => {
-      set({ status: 'playing', errorMessage: null })
-    })
-    el.addEventListener('pause', () => {
-      if (get().status !== 'connecting') {
-        set({ status: 'paused' })
-      }
-    })
-    el.addEventListener('waiting', () => {
-      if (get().status === 'playing') set({ status: 'buffering' })
-    })
-    el.addEventListener('error', () => {
-      set({
-        status: 'error',
-        errorMessage: 'Signal lost. Reacquiring.',
-      })
-    })
-    el.addEventListener('timeupdate', () => {
-      set({
-        currentTimeSec: el.currentTime,
-        durationSec: Number.isFinite(el.duration) ? el.duration : 0,
-      })
-    })
-    el.addEventListener('loadedmetadata', () => {
-      set({ durationSec: Number.isFinite(el.duration) ? el.duration : 0 })
-    })
-    el.addEventListener('ended', () => {
-      const idx = advanceRotation()
-      const np = buildNowPlaying(idx)
-      set({ nowPlaying: np, status: 'connecting', currentTimeSec: 0 })
-      el.src = np.track.demoAudioUrl
-      void el.play().catch(() => {
-        set({ status: 'error', errorMessage: 'Signal lost. Reacquiring.' })
-      })
-    })
+    const previousId = get().nowPlaying.track.id
+    const nextIndex = advanceRotation()
+    const next = transitionToIndex(nextIndex, 0)
 
-    if (rotationTimer) clearInterval(rotationTimer)
-    rotationTimer = setInterval(() => {
-      if (get().status === 'playing') {
-        set({ nowPlaying: buildNowPlaying(getRotationIndex()) })
-      }
-    }, 15000)
-  },
-
-  play: async () => {
-    if (!isLaunchLive()) {
-      getAudio().pause()
-      set({ status: 'idle', errorMessage: null })
+    if (next.track.id === previousId) {
+      advancingTrack = false
       return
     }
 
     const el = getAudio()
-    const { nowPlaying } = get()
-    set({ status: 'connecting', errorMessage: null })
-
-    if (el.src !== nowPlaying.track.demoAudioUrl) {
-      el.src = nowPlaying.track.demoAudioUrl
-    }
-
     try {
+      bindAudioAnalyser(el)
+      await resumeAudioAnalyser()
       await el.play()
       set({ status: 'playing' })
     } catch {
       set({
         status: 'error',
-        errorMessage: 'Autoplay blocked. Press play to acquire signal.',
+        errorMessage: 'Signal lost. Reacquiring.',
       })
+    } finally {
+      advancingTrack = false
     }
-  },
+  }
 
-  pause: () => {
-    getAudio().pause()
-    set({ status: 'paused' })
-  },
+  return {
+    status: 'idle',
+    nowPlaying: (() => {
+      const pos = syncRotationFromClock()
+      return buildNowPlaying(pos.index, pos.trackStartedAtUtc)
+    })(),
+    listenerCount: 0,
+    volume: loadVolume(),
+    errorMessage: null,
+    currentTimeSec: 0,
+    durationSec: 0,
 
-  toggle: async () => {
-    const { status, play, pause } = get()
-    if (status === 'playing' || status === 'buffering') {
-      pause()
-    } else {
-      await play()
-    }
-  },
+    init: () => {
+      if (initialized) return
+      initialized = true
 
-  setVolume: (v: number) => {
-    const clamped = Math.min(1, Math.max(0, v))
-    getAudio().volume = clamped
-    try {
-      localStorage.setItem(VOLUME_KEY, String(clamped))
-    } catch {
-      // ignore
-    }
-    set({ volume: clamped })
-  },
+      initListenerPresence((count) => {
+        set({ listenerCount: count })
+      })
 
-  refreshNowPlaying: () => {
-    set({ nowPlaying: buildNowPlaying(getRotationIndex()) })
-  },
-}))
+      const el = getAudio()
+      bindAudioAnalyser(el)
+      const { volume } = get()
+      const pos = syncRotationFromClock()
+      const np = buildNowPlaying(pos.index, pos.trackStartedAtUtc)
+
+      el.volume = volume
+      applyTrackToAudio(np.track, pos.offsetSec)
+      set({
+        nowPlaying: np,
+        durationSec: np.track.durationSec,
+        currentTimeSec: pos.offsetSec,
+      })
+
+      el.addEventListener('playing', () => {
+        set({ status: 'playing', errorMessage: null })
+        syncListenerPresence('playing')
+      })
+      el.addEventListener('pause', () => {
+        if (get().status !== 'connecting') {
+          set({ status: 'paused' })
+          syncListenerPresence('paused')
+        }
+      })
+      el.addEventListener('waiting', () => {
+        if (get().status === 'playing') set({ status: 'buffering' })
+      })
+      el.addEventListener('error', () => {
+        set({
+          status: 'error',
+          errorMessage: 'Signal lost. Reacquiring.',
+        })
+      })
+      el.addEventListener('timeupdate', () => {
+        const duration = Number.isFinite(el.duration)
+          ? el.duration
+          : get().nowPlaying.track.durationSec
+
+        set({
+          currentTimeSec: el.currentTime,
+          durationSec: duration,
+        })
+
+        if (get().status !== 'playing' || advancingTrack) return
+        if (duration <= 0 || el.currentTime < duration - 0.35) return
+
+        void playNextTrack()
+      })
+      el.addEventListener('loadedmetadata', () => {
+        set({
+          durationSec: Number.isFinite(el.duration)
+            ? el.duration
+            : get().nowPlaying.track.durationSec,
+        })
+      })
+      el.addEventListener('ended', () => {
+        void playNextTrack()
+      })
+
+      if (rotationTimer) clearInterval(rotationTimer)
+      rotationTimer = setInterval(() => {
+        if (get().status !== 'playing') return
+
+        const localIndex = getRotationIndex()
+        const clock = getClockPosition()
+
+        if (!isBehindSchedule(clock.index, localIndex)) return
+
+        transitionToIndex(clock.index, clock.offsetSec, clock.trackStartedAtUtc, {
+          keepStatus: true,
+        })
+      }, 10000)
+    },
+
+    play: async () => {
+      if (!canPlayStation()) {
+        getAudio().pause()
+        set({ status: 'idle', errorMessage: null })
+        return
+      }
+
+      const el = getAudio()
+      const pos = syncRotationFromClock()
+      const np = transitionToIndex(pos.index, pos.offsetSec, pos.trackStartedAtUtc)
+
+      set({ status: 'connecting', errorMessage: null, nowPlaying: np })
+
+      try {
+        bindAudioAnalyser(el)
+        await resumeAudioAnalyser()
+        await el.play()
+        set({ status: 'playing' })
+      } catch {
+        set({
+          status: 'error',
+          errorMessage: 'Autoplay blocked. Press play to acquire signal.',
+        })
+      }
+    },
+
+    playTrack: async (trackId: string) => {
+      if (!canPlayStation()) return
+
+      const index = findTrackIndex(trackId)
+      if (index < 0) return
+
+      advancingTrack = false
+      stopCurrentPlayback()
+
+      const el = getAudio()
+      transitionToIndex(index, 0)
+      set({ status: 'connecting', errorMessage: null, currentTimeSec: 0 })
+
+      try {
+        bindAudioAnalyser(el)
+        await resumeAudioAnalyser()
+        await el.play()
+        set({ status: 'playing' })
+      } catch {
+        set({
+          status: 'error',
+          errorMessage: 'Autoplay blocked. Press play to acquire signal.',
+        })
+      }
+    },
+
+    pause: () => {
+      getAudio().pause()
+      set({ status: 'paused' })
+      syncListenerPresence('paused')
+    },
+
+    toggle: async () => {
+      const { status, play, pause } = get()
+      if (status === 'playing' || status === 'buffering') {
+        pause()
+      } else {
+        await play()
+      }
+    },
+
+    setVolume: (v: number) => {
+      const clamped = Math.min(1, Math.max(0, v))
+      getAudio().volume = clamped
+      try {
+        localStorage.setItem(VOLUME_KEY, String(clamped))
+      } catch {
+        // ignore
+      }
+      set({ volume: clamped })
+    },
+
+    refreshNowPlaying: () => {
+      const index = getRotationIndex()
+      set({ nowPlaying: buildNowPlaying(index) })
+    },
+  }
+})
