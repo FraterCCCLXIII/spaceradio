@@ -26,45 +26,12 @@
     @apply bg-void font-sans text-charcoal-100 antialiased;
   }
 
-  img {
+  img:not(.team-photo) {
     filter: grayscale(100%) contrast(1.05) brightness(0.75);
   }
 
   ::selection {
     @apply bg-charcoal-600 text-charcoal-50;
-  }
-
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
-  }
-
-  *::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  *::-webkit-scrollbar-track {
-    background: var(--scrollbar-track);
-    border-radius: 9999px;
-  }
-
-  *::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-thumb);
-    border: 2px solid var(--scrollbar-track);
-    border-radius: 9999px;
-  }
-
-  *::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-thumb-hover);
-  }
-
-  *::-webkit-scrollbar-thumb:active {
-    background: var(--scrollbar-thumb-active);
-  }
-
-  *::-webkit-scrollbar-corner {
-    background: var(--scrollbar-track);
   }
 }
 
@@ -84,50 +51,132 @@
   .section-heading {
     @apply font-display text-3xl font-normal uppercase tracking-wide text-signal sm:text-4xl lg:text-5xl;
   }
+}
 
-  .scrollbar-rail {
-    scrollbar-width: thin;
-    scrollbar-color: var(--scrollbar-thumb) transparent;
-  }
+/* Custom scrollbars — outside @layer so WebKit pseudo-elements apply reliably */
 
-  .scrollbar-rail::-webkit-scrollbar {
-    height: 6px;
-  }
+html,
+body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
 
-  .scrollbar-rail::-webkit-scrollbar-track {
-    background: transparent;
-    margin-inline: 4px;
-  }
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
 
-  .scrollbar-rail::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-thumb);
-    border: none;
-    border-radius: 9999px;
-  }
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
 
-  .scrollbar-rail::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-thumb-hover);
-  }
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border: 2px solid var(--scrollbar-track);
+  border-radius: 9999px;
+}
 
-  .scrollbar-panel {
-    scrollbar-width: thin;
-    scrollbar-color: var(--scrollbar-thumb) var(--color-void-panel);
-  }
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
 
-  .scrollbar-panel::-webkit-scrollbar {
-    width: 6px;
-  }
+/* Horizontal content rows (station/browse rails) */
+.scroll-row,
+.scrollbar-rail {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb-hover) var(--scrollbar-track);
+  padding-bottom: 6px;
+  scrollbar-gutter: stable;
+}
 
-  .scrollbar-panel::-webkit-scrollbar-track {
-    background: var(--color-void-panel);
-    border-radius: 9999px;
-  }
+.scroll-row::-webkit-scrollbar,
+.scrollbar-rail::-webkit-scrollbar {
+  display: block;
+  height: 10px;
+}
 
-  .scrollbar-panel::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-thumb);
-    border: 2px solid var(--color-void-panel);
-    border-radius: 9999px;
-  }
+.scroll-row::-webkit-scrollbar-track,
+.scrollbar-rail::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 9999px;
+  margin-inline: 2px;
+}
+
+.scroll-row::-webkit-scrollbar-thumb,
+.scrollbar-rail::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-hover);
+  border: 2px solid var(--scrollbar-track);
+  border-radius: 9999px;
+  min-width: 48px;
+}
+
+.scroll-row::-webkit-scrollbar-thumb:hover,
+.scrollbar-rail::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-active);
+}
+
+.scroll-row::-webkit-scrollbar-thumb:active,
+.scrollbar-rail::-webkit-scrollbar-thumb:active {
+  background: var(--color-orbit);
+}
+
+/* Vertical panels (main app view, queue, track lists) */
+.scroll-panel,
+.scrollbar-panel,
+.scroll-list,
+.scrollbar-list {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb-hover) var(--scrollbar-track);
+  scrollbar-gutter: stable;
+}
+
+.scroll-panel::-webkit-scrollbar,
+.scrollbar-panel::-webkit-scrollbar,
+.scroll-list::-webkit-scrollbar,
+.scrollbar-list::-webkit-scrollbar {
+  display: block;
+  width: 10px;
+}
+
+.scroll-panel::-webkit-scrollbar-track,
+.scrollbar-panel::-webkit-scrollbar-track,
+.scroll-list::-webkit-scrollbar-track,
+.scrollbar-list::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 9999px;
+  margin-block: 2px;
+}
+
+.scroll-panel::-webkit-scrollbar-thumb,
+.scrollbar-panel::-webkit-scrollbar-thumb,
+.scroll-list::-webkit-scrollbar-thumb,
+.scrollbar-list::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-hover);
+  border: 2px solid var(--scrollbar-track);
+  border-radius: 9999px;
+  min-height: 40px;
+}
+
+.scroll-panel::-webkit-scrollbar-thumb:hover,
+.scrollbar-panel::-webkit-scrollbar-thumb:hover,
+.scroll-list::-webkit-scrollbar-thumb:hover,
+.scrollbar-list::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-active);
+}
+
+.scroll-panel::-webkit-scrollbar-thumb:active,
+.scrollbar-panel::-webkit-scrollbar-thumb:active,
+.scroll-list::-webkit-scrollbar-thumb:active,
+.scrollbar-list::-webkit-scrollbar-thumb:active {
+  background: var(--color-orbit);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -10,6 +10,7 @@ const links = [
   { to: '/originals', label: 'Originals' },
   { to: '/transmissions', label: 'Transmissions' },
   { to: '/sponsors', label: 'Sponsors' },
+  { to: '/team', label: 'Team' },
 ]
 
 export function SiteNav() {

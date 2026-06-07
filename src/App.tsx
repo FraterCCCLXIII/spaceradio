@@ -15,6 +15,7 @@ import { MissionDetailPage } from './pages/MissionDetailPage'
 import { MissionsPage } from './pages/MissionsPage'
 import { OriginalsPage } from './pages/OriginalsPage'
 import { SponsorsPage } from './pages/SponsorsPage'
+import { TeamPage } from './pages/TeamPage'
 import { TransmissionDetailPage } from './pages/TransmissionDetailPage'
 import { TransmissionsPage } from './pages/TransmissionsPage'
 
@@ -37,6 +38,7 @@ export default function App() {
           <Route path="transmissions" element={<TransmissionsPage />} />
           <Route path="transmissions/:id" element={<TransmissionDetailPage />} />
           <Route path="sponsors" element={<SponsorsPage />} />
+          <Route path="team" element={<TeamPage />} />
         </Route>
 
         <Route path="app" element={<PlayerLayout />}>
