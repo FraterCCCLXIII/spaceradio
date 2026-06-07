@@ -5,7 +5,7 @@ import './SineWaveVisualizer.css'
 const WIDTH = 800
 const AMPLITUDE = 30
 const FREQUENCY = 10
-const SEGMENTS = 1000
+const SEGMENTS = 400
 const INTERVAL = WIDTH / SEGMENTS
 
 /** Sinus curve approximating CodePen CustomEase("sinus", ...) */

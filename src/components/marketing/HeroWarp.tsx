@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import './HeroWarp.css'
 
-const PARTICLE_NUM = 500
+const PARTICLE_NUM = 400
 const PARTICLE_BASE_RADIUS = 0.5
 const FL = 500
 const DEFAULT_SPEED = 2
@@ -85,6 +85,8 @@ export function HeroWarp() {
       if (!running) return
       frame = requestAnimationFrame(loop)
 
+      if (canvasWidth <= 0 || canvasHeight <= 0) return
+
       context.save()
       context.fillStyle = 'rgb(26, 26, 24)'
       context.fillRect(0, 0, canvasWidth, canvasHeight)
@@ -102,7 +104,7 @@ export function HeroWarp() {
         p.pastZ = p.z
         p.z -= speed
 
-        if (p.z <= 0) {
+        if (p.z <= 0 || p.pastZ <= 0) {
           randomizeParticle(p, canvasWidth, canvasHeight)
           continue
         }
@@ -159,7 +161,7 @@ export function HeroWarp() {
 
   return (
     <div ref={containerRef} className="hero-warp" aria-hidden>
-      <canvas ref={canvasRef} id="c" />
+      <canvas ref={canvasRef} />
     </div>
   )
 }
